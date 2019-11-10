@@ -3,10 +3,10 @@
 	<!-- Page info -->
 	<div class="page-top-info">
 		<div class="container">
-			<h4>Category PAge</h4>
+			<h4>Detail Produk</h4>
 			<div class="site-pagination">
 				<a href="">Home</a> /
-				<a href="">Shop</a>
+				<a href="">Detail</a>
 			</div>
 		</div>
 	</div>
@@ -17,61 +17,93 @@
 	<section class="product-section">
 		<div class="container">
 			<div class="back-link">
-				<a href="./category.html"> &lt;&lt; Back to Category</a>
+				<!-- <a href="./category.html"> &lt;&lt; Back to Category</a> -->
 			</div>
 			<div class="row">
 				<div class="col-lg-6">
-					<div class="product-pic-zoom">
-						<img class="product-big-img" src="<?php echo base_url('assets_front/img/single-product/1.jpg'); ?>" alt="">
+					<div class="">
+						<img class="product-big-img" src="<?php echo base_url('upload/produk/'.$data[0]['foto']); ?>" alt="">
 					</div>
-					<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
+<!-- 					<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
 						<div class="product-thumbs-track">
 							<div class="pt active" data-imgbigurl="<?php echo base_url('assets_front/img/single-product/1.jpg'); ?>"><img src="<?php echo base_url('assets_front/img/single-product/thumb-1.jpg'); ?>" alt=""></div>
 							<div class="pt" data-imgbigurl="<?php echo base_url('assets_front/img/single-product/2.jpg'); ?>"><img src="<?php echo base_url('assets_front/img/single-product/thumb-2.jpg'); ?>" alt=""></div>
 							<div class="pt" data-imgbigurl="<?php echo base_url('assets_front/img/single-product/3.jpg'); ?>"><img src="<?php echo base_url('assets_front/img/single-product/thumb-3.jpg'); ?>" alt=""></div>
 							<div class="pt" data-imgbigurl="<?php echo base_url('assets_front/img/single-product/4.jpg'); ?>"><img src="<?php echo base_url('assets_front/img/single-product/thumb-4.jpg'); ?>" alt=""></div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="col-lg-6 product-details">
-					<h2 class="p-title">White peplum top</h2>
-					<h3 class="p-price">$39.90</h3>
-					<h4 class="p-stock">Available: <span>In Stock</span></h4>
+					<h2 class="p-title" style="font-size: 260% !important;"><?php echo $data[0]['nama_produk'] ?></h2>
+					<h3 class="p-price"><?php 
+					$ukuran=$data[0]['ukuran'];
+					            $query_cekUkuran=$this->db->query("SELECT * FROM tb_ukuran where id_ukuran=$ukuran;");
+
+					            foreach ($query_cekUkuran->result() as $keyUkuran) {  
+					            	echo "Rp. ".$keyUkuran->harga;
+					            }
+					 ?></h3>
+<!-- 					<h4 class="p-stock">Available: <span>In Stock</span></h4>
 					<div class="p-rating">
 						<i class="fa fa-star-o"></i>
 						<i class="fa fa-star-o"></i>
 						<i class="fa fa-star-o"></i>
 						<i class="fa fa-star-o"></i>
 						<i class="fa fa-star-o fa-fade"></i>
-					</div>
-					<div class="p-review">
+					</div> -->
+<!-- 					<div class="p-review">
 						<a href="">3 reviews</a>|<a href="">Add your review</a>
-					</div>
+					</div> -->
+						<p style="font-weight: bold; font-size: 112%; margin-top: 10%;">SIZE</p>					
 					<div class="fw-size-choose">
-						<p>Size</p>
 						<div class="sc-item">
-							<input type="radio" name="sc" id="xs-size">
-							<label for="xs-size">32</label>
+							<input type="radio" name="sc" id="1-size">
+							<label for="1-size">32</label>
 						</div>
 						<div class="sc-item">
-							<input type="radio" name="sc" id="s-size">
-							<label for="s-size">34</label>
+							<input type="radio" name="sc" id="2-size">
+							<label for="2-size">34</label>
 						</div>
 						<div class="sc-item">
-							<input type="radio" name="sc" id="m-size" checked="">
-							<label for="m-size">36</label>
+							<input type="radio" name="sc" id="3-size" checked="">
+							<label for="3-size">36</label>
 						</div>
 						<div class="sc-item">
-							<input type="radio" name="sc" id="l-size">
-							<label for="l-size">38</label>
+							<input type="radio" name="sc" id="4-size">
+							<label for="4-size">38</label>
 						</div>
 						<div class="sc-item disable">
-							<input type="radio" name="sc" id="xl-size" disabled>
-							<label for="xl-size">40</label>
+							<input type="radio" name="sc" id="5-size" disabled>
+							<label for="5-size">40</label>
 						</div>
 						<div class="sc-item">
-							<input type="radio" name="sc" id="xxl-size">
-							<label for="xxl-size">42</label>
+							<input type="radio" name="sc" id="6-size">
+							<label for="6-size">42</label>
+						</div>
+						<br>
+						<div class="sc-item disable">
+							<input type="radio" name="sc" id="7-size" disabled>
+							<label for="7-size">40</label>
+						</div>
+						<div class="sc-item">
+							<input type="radio" name="sc" id="8-size">
+							<label for="8-size">42</label>
+						</div>
+						<div class="sc-item disable">
+							<input type="radio" name="sc" id="9-size" disabled>
+							<label for="9-size">40</label>
+						</div>
+						<div class="sc-item">
+							<input type="radio" name="sc" id="10-size">
+							<label for="10-size">42</label>
+						</div>
+						<div class="sc-item disable">
+							<input type="radio" name="sc" id="11-size" disabled>
+							<label for="11-size">40</label>
+						</div>
+						<div class="sc-item">
+							<input type="radio" name="sc" id="12-size">
+							<label for="12-size">42</label>
 						</div>
 					</div>
 					<div class="quantity">
@@ -93,7 +125,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="panel">
+<!-- 						<div class="panel">
 							<div class="panel-header" id="headingTwo">
 								<button class="panel-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">care details </button>
 							</div>
@@ -103,8 +135,8 @@
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
 								</div>
 							</div>
-						</div>
-						<div class="panel">
+						</div> -->
+<!-- 						<div class="panel">
 							<div class="panel-header" id="headingThree">
 								<button class="panel-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">shipping & Returns</button>
 							</div>
@@ -115,14 +147,14 @@
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="social-sharing">
-						<a href=""><i class="fa fa-google-plus"></i></a>
+<!-- 						<a href=""><i class="fa fa-google-plus"></i></a>
 						<a href=""><i class="fa fa-pinterest"></i></a>
 						<a href=""><i class="fa fa-facebook"></i></a>
 						<a href=""><i class="fa fa-twitter"></i></a>
-						<a href=""><i class="fa fa-youtube"></i></a>
+						<a href=""><i class="fa fa-youtube"></i></a> -->
 					</div>
 				</div>
 			</div>
@@ -132,7 +164,7 @@
 
 
 	<!-- RELATED PRODUCTS section -->
-	<section class="related-product-section">
+	<section style="margin-top: 5%;" class="related-product-section">
 		<div class="container">
 			<div class="section-title">
 				<h2>PRODUK TERKAIT</h2>

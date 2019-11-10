@@ -177,21 +177,35 @@
 				<li><a href="#">LEGGINGS</a></li>
 			</ul> -->
 			<div class="row">
+    		<?php
+    		foreach ($array as $key) { ?>
 				<div class="col-lg-3 col-sm-6">
 					<div class="product-item">
 						<div class="pi-pic">
-							<img src="<?php echo base_url('assets_front/img/product/5.jpg') ?>" alt="">
+							<img src="<?php echo base_url('upload/produk/'.$key['foto']) ?>" alt="">
 							<div class="pi-links">
-								<a href="<?php echo base_url('Home/detail') ?>" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="<?php echo base_url('Home/detail/'.$key['id_produk']) ?>" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
 							</div>
 						</div>
 						<div class="pi-text">
-							<h6>$35,00</h6>
-							<p>Flamboyant Pink Top </p>
+							<h6><?php
+							$ukuran=$key['ukuran'];
+					            $query_cekUkuran=$this->db->query("SELECT * FROM tb_ukuran where id_ukuran=$ukuran;");
+
+					            foreach ($query_cekUkuran->result() as $keyUkuran) {  
+					            	echo "Rp. ".$keyUkuran->harga;
+					            }							
+							 ?></h6>
+							<p><?php echo $key['nama_produk']; ?> </p>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-3 col-sm-6">
+			<?php } ?>
+
+
+
+
+<!-- 				<div class="col-lg-3 col-sm-6">
 					<div class="product-item">
 						<div class="pi-pic">
 							<div class="tag-sale">ON SALE</div>
@@ -289,7 +303,7 @@
 							<p>Flamboyant Pink Top </p>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<div class="text-center pt-5">
 				<button class="site-btn sb-line sb-dark">LIHAT PRODUK LAIN</button>
