@@ -21,6 +21,18 @@ class Mdl_produk extends CI_Model
 		$query = $this->db->query("SELECT * FROM tb_produk");
 		return $query->result_array();
 	}
+	
+	public function ambildata_stok()
+	{
+		$query = $this->db->query("SELECT * FROM tb_stok");
+		return $query->result_array();
+	}
+
+	public function ambildata_stok2($id_stok)
+	{
+		$query = $this->db->query("SELECT * FROM tb_stok where id_stok=$id_stok");
+		return $query->result_array();
+	}
 
 	public function ambildata_transaksi()
 	{
@@ -51,6 +63,12 @@ class Mdl_produk extends CI_Model
 		$this->db->insert('tb_produk', $paket);
 		return $this->db->affected_rows();
 	}
+
+	public function tambahdataStok($paket)
+	{
+		$this->db->insert('tb_stok', $paket);
+		return $this->db->affected_rows();
+	}
 	
 	public function delete_data($where, $table)
 	{
@@ -78,12 +96,35 @@ class Mdl_produk extends CI_Model
 
 	public function update_produk($status,$send)
 	{
+			$sql = "UPDATE tb_produk SET nama_produk = ? WHERE id_produk = ?";
+			$query = $this->db->query($sql, array($send['nama_produk'], $send['id_produk']));			
+	}
+
+	public function update_stok($status,$send)
+	{
 		if ($status=="pict") {
-			$sql = "UPDATE tb_produk SET nama_produk = ?,ukuran = ?,warna = ?,foto = ? WHERE id_produk = ?";
-			$query = $this->db->query($sql, array($send['nama_produk'],$send['ukuran'], $send['warna'], $send['foto'], $send['id_produk']));
-		}else{
-			$sql = "UPDATE tb_produk SET nama_produk = ?,ukuran = ?,warna = ? WHERE id_produk = ?";
-			$query = $this->db->query($sql, array($send['nama_produk'],$send['ukuran'], $send['warna'], $send['id_produk']));			
+			$sql = "UPDATE tb_stok SET id_produk = ?,id_ukuran = ?,id_warna = ?,foto = ?,jumlah_stok = ? WHERE id_stok = ?";
+			$query = $this->db->query($sql, array($send['id_produk'],$send['id_ukuran'], $send['id_warna'], $send['foto'], $send['jumlah_stok'], $send['id_stok']));
+		}elseif ($status=="pictless") {
+			$sql = "UPDATE tb_stok SET id_produk = ?,id_ukuran = ?,id_warna = ?,jumlah_stok = ? WHERE id_stok = ?";
+			$query = $this->db->query($sql, array($send['id_produk'],$send['id_ukuran'], $send['id_warna'], $send['jumlah_stok'], $send['id_stok']));			
+		}elseif ($status=="hit"){
+			$sql = "UPDATE tb_stok SET jumlah_stok = ? WHERE id_stok = ?";
+			$query = $this->db->query($sql, array($send['jumlah_stok'], $send['id_stok']));		
 		}
 	}
+
+	// public function update_produk($status,$send)
+	// {
+	// 	if ($status=="pict") {
+	// 		$sql = "UPDATE tb_produk SET nama_produk = ?,ukuran = ?,warna = ?,foto = ? WHERE id_produk = ?";
+	// 		$query = $this->db->query($sql, array($send['nama_produk'],$send['ukuran'], $send['warna'], $send['foto'], $send['id_produk']));
+	// 	}else{
+	// 		$sql = "UPDATE tb_produk SET nama_produk = ?,ukuran = ?,warna = ? WHERE id_produk = ?";
+	// 		$query = $this->db->query($sql, array($send['nama_produk'],$send['ukuran'], $send['warna'], $send['id_produk']));			
+	// 	}
+	// }
+
+
+
 }

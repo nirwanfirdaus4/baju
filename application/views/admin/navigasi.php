@@ -13,7 +13,9 @@
 						<a href="javascript:;"> <i class="material-icons">panorama_horizontal</i> <span class="title">Produk</span> <span class=" arrow"></span> </a>
 						<ul class="sub-menu">
 							<li> <a href="<?php echo base_url('admin/Produk/ukuran'); ?>">Ukuran</a> </li>
+							<li> <a href="<?php echo base_url('admin/Produk/warna'); ?>">Warna</a> </li>
 							<li> <a href="<?php echo base_url('admin/Produk/daftarProduk'); ?>">Daftar Produk</a> </li>
+							<li> <a href="<?php echo base_url('admin/Produk/stok'); ?>">Stok Produk</a> </li>
 						</ul>
 					</li>
 					<li class="<?php if($this->uri->segment(2)=="Transaksi"){echo "open active";}?>">
@@ -22,7 +24,7 @@
 					</li>
 					
 					<li>
-						<a href=""><i class="fa fa-sign-out"></i><span class="title"> Logout</span></a>
+						<a href="<?php echo base_url('Home/logout'); ?>"><i class="fa fa-sign-out"></i><span class="title"> Logout</span></a>
 					</li>
 					
 				</ul>

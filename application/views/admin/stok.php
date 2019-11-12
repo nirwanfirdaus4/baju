@@ -1,11 +1,12 @@
-<?php $this->load->view('admin/header') ?>
+<?php $this->load->view('admin/header_table') ?>
 <?php $this->load->view('admin/navigasi') ?>
+<!-- isi -->
 
 <div class="page-content">
 
 <div id="portlet-config" class="modal hide">
 <div class="modal-header">
-<button data-dismiss="modal" class="close" type="button"></button> 
+<button data-dismiss="modal" class="close" type="button"></button>
 <h3>Widget Settings</h3>
 </div>
 <div class="modal-body"> Widget settings form goes here </div>
@@ -16,10 +17,10 @@
 <li>
 <p>Produk</p>
 </li>
-<li><a href="#" class="active">Edit Produk</a> </li>
+<li><a href="#" class="active">Stok Produk</a> </li>
 </ul>
 <div class="page-title"> 
-<!-- 	<i class="icon-custom-left"></i>
+<!--    <i class="icon-custom-left"></i>
 <h3>Data - <span class="semi-bold">Ukuran</span></h3> -->
 </div>
 
@@ -27,67 +28,150 @@
 <div class="span12">
 <div class="grid simple ">
 <div class="grid-title">
-<!-- <h4>Data <span class="semi-bold">Ukuran</span></h4> -->
-<!-- <div class="tools">
-<a href="javascript:;" class="collapse"></a>
+<h4>Data <span class="semi-bold">Stok Produk</span></h4>
+<div class="tools">
+<!-- <a href="javascript:;" class="collapse"></a>
 <a href="#grid-config" data-toggle="modal" class="config"></a>
 <a href="javascript:;" class="reload"></a>
-<a href="javascript:;" class="remove"></a>
-</div> -->
-</div>
-<div class="grid-body no-border">
-<form action="<?php echo base_url('admin/Produk/edit_produk/'.$data[0]['id_produk']) ?>" id="form_traditional_validation" name="form_traditional_validation" role="form" autocomplete="off" method="post" class="validate" enctype="multipart/form-data">
-
-<div class="form-group">
-<label class="form-label">Nama Produk</label>
-<div class="input-with-icon right">
-<i class=""></i>
-<input class="form-control" id="form1CardHolderName" name="nama_produk" value="<?php echo  $data[0]['nama_produk'];?>" type="text" required>
+<a href="javascript:;" class="remove"></a> -->
+<a href="<?php echo base_url('admin/Produk/tambahdataStok') ?>"><button type="button" class="btn btn-success btn-cons">Tambah Data</button></a>
 </div>
 </div>
-<!-- <div class="form-group">
-<label class="form-label">Ukuran</label>
+<div class="grid-body ">
+<table class="table table-striped" id="example2">
+<thead>
+<tr>
+<th>No</th>
+<th>Nama Produk</th>
+<th>Ukuran</th>
+<th>Warna</th>
+<th>Jumlah Stok</th>
+<th>Gambar</th>
+<th>Aksi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd gradeX">
+    <?php $no = 1;
+    foreach ($array as $key) { ?>
+        <td><?php echo $no; ?></td>
+        <td><?php
+        $produk = $this->db->query("SELECT * FROM tb_produk");
+         $volt=$key['id_produk'];
+        foreach ($produk->result() as $key7) {
+          if ($key7->id_produk== $volt) {
+            echo $key7->nama_produk;
+          }
+        }
+        
+        ?></td>
+        <td><?php
+        $ukuran = $this->db->query("SELECT * FROM tb_ukuran");
+         $volt=$key['id_ukuran'];
+        foreach ($ukuran->result() as $key2) {
+          if ($key2->id_ukuran== $volt) {
+            echo $key2->nama_ukuran;
+          }
+        }
+        
+        ?></td>
+        <td><?php
+        $warna = $this->db->query("SELECT * FROM tb_warna");
+         $volt=$key['id_warna'];
+        foreach ($warna->result() as $key2) {
+          if ($key2->id_warna== $volt) {
+            echo $key2->nama_warna;
+          }
+        }
+        
+        ?></td>
+        <td><?php echo $key['jumlah_stok'] ?></td>
+        <td><button data-toggle="modal" data-target="#myModal<?php echo $no; ?>" type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>    </td>
+        <td>
+            <button data-toggle="modal" data-target="#plus<?php echo $no; ?>" type="button" class="btn btn-success"><i class="fa fa-plus"></i></button>
+            <a href="<?php echo base_url('admin/Produk/edit_stok/'.$key['id_stok']) ?>"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>    
+            <a href="<?php echo base_url('admin/Produk/hapus_stok/'.$key['id_stok']) ?>"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>         
+        </td>
+</tr>
 
-<select class="form-control" name="ukuran" required="required">
-	  <option value="zero">--Pilih Ukuran--</option>
-	  <?php 
-	  $ukuran = $this->db->query("SELECT * FROM tb_ukuran");
-	  foreach($ukuran->result() as $row_kat)  { ?>
-	    <option value="<?php echo $row_kat->id_ukuran;?>"<?php echo ($row_kat->id_ukuran == $data[0]['ukuran'] ? 'selected="selected"' : ''); ?>><?php echo $row_kat->nama_ukuran; ?></option>
-	  <?php } ?>
+<div class="modal fade" id="myModal<?php echo $no; ?>" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Gambar Produk</h4>
+        </div>
+        <div class="modal-body">
+          <center><img style="margin-top: 7%; margin-bottom: 7%; " width="80%" src="<?php echo base_url('upload/produk/'.$key['foto']); ?>"></center>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="modal fade" id="plus<?php echo $no; ?>" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tambah Stok</h4>
+        </div>
+        <div class="modal-body">
 
+          <form action="<?php echo base_url('admin/Produk/plus_stok/'.$key['id_stok']) ?>" id="form_traditional_validation" name="form_traditional_validation" role="form" autocomplete="off" method="post" class="validate">
+
+          <div class="form-group">
+          <label class="form-label">Tambahan</label>
+          <div class="input-with-icon right">
+          <i class=""></i>
+          <input class="form-control" id="form1CardHolderName" name="plus" type="text" required>
+          </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+            <center>
+          <button class="btn btn-primary" type="submit"><i class="icon-ok"></i> Tambahkan</button> 
+          <button style="margin-left: 2%;" class="btn btn-warning" type="button" data-dismiss="modal">Batal</button>
+          </center>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        <?php $no++; } ?>
+
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+</div>
+<div class="admin-bar" id="quick-access" style="display:">
+<div class="admin-bar-inner">
+<div class="form-horizontal">
+<!-- <select id="val1" class="select2-wrapper m-r-10">
+<option value="Gecko">Gecko</option>
+<option value="Webkit">Webkit</option>
+<option value="KHTML">KHTML</option>
+<option value="Tasman">Tasman</option>
+</select> -->
+<select id="val2" class="select2-wrapper">
+<option value="Internet Explorer 10">Internet Explorer 10</option>
+<option value="Firefox 4.0">Firefox 4.0</option>
+<option value="Chrome">Chrome</option>
 </select>
-</div> -->
-<!-- <div class="form-group">
-<label class="form-label">Warna</label>
-<select class="form-control" name="warna" required="required">
-	<option value="Abu-abu"<?php echo ($data[0]['warna'] == "Abu-abu" ? 'selected="selected"' : ''); ?>>Abu-abu</option>
-	<option value="Dusty Pink"<?php echo ($data[0]['warna'] == "Dusty Pink" ? 'selected="selected"' : ''); ?>>Dusty Pink</option>
-	<option value="Ungu"<?php echo ($data[0]['warna'] == "Ungu" ? 'selected="selected"' : ''); ?>>Ungu</option>
-	<option value="Navy"<?php echo ($data[0]['warna'] == "Navy" ? 'selected="selected"' : ''); ?>>Navy</option>
-	<option value="Peach"<?php echo ($data[0]['warna'] == "Peach" ? 'selected="selected"' : ''); ?>>Peach</option>
-	<option value="Merah Maroon"<?php echo ($data[0]['warna'] == "Merah Maroon" ? 'selected="selected"' : ''); ?>>Merah Maroon</option>
-</select>
-
-</div> -->
-<!-- <div class="form-group">
-<label class="form-label">Foto Produk</label>
-	<input type="file" name="foto">
-</div> -->
-
-<div class="form-actions">
-<div class="pull-right">
-<button class="btn btn-success btn-cons" type="submit"><i class="icon-ok"></i> Simpan</button>
-<a href="<?php echo base_url('admin/Produk/daftarProduk'); ?>"><button class="btn btn-white btn-cons" type="button">Batal</button></a>
+</div>
+<button class="btn btn-primary btn-cons btn-add" type="button">Add Browser</button>
+<button class="btn btn-white btn-cons btn-cancel" type="button">Cancel</button>
 </div>
 </div>
-</form>
-
-</div>
-</div>
-</div>
-</div>
-</div>
+<div class="addNewRow"></div>
 </div>
 
 <div class="chat-window-wrapper">
@@ -113,7 +197,7 @@
 <div class="status-icon green"></div>Office work</a>
 </li>
 <li>
-<a href="#">
+ <a href="#">
 <div class="status-icon green"></div>Personal vibes</a>
 </li>
 </ul>
@@ -328,4 +412,4 @@ Let me know when you free
 
 </div>
 
-<?php $this->load->view('admin/footer') ?>
+<?php $this->load->view('admin/footer_table') ?>

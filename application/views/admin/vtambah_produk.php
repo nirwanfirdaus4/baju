@@ -45,7 +45,7 @@
 <input class="form-control" id="form1CardHolderName" name="nama_produk" type="text" required>
 </div>
 </div>
-<div class="form-group">
+<!-- <div class="form-group">
 <label class="form-label">Ukuran</label>
 
 <select class="form-control" name="ukuran" required="required">
@@ -56,11 +56,9 @@
             <?php }
 	 ?>
 </select>
-<!-- <input class="form-control" id="form1Amount" name="ukuran" type="number" required> -->
-</div>
-<div class="form-group">
+</div> -->
+<!-- <div class="form-group">
 <label class="form-label">Warna</label>
-<!-- <input class="form-control" id="form1Amount" name="warna" type="number" required> -->
 <select class="form-control" name="warna" required="required">
 	<option value="Abu-abu">Abu-abu</option>
 	<option value="Dusty Pink">Dusty Pink</option>
@@ -70,11 +68,11 @@
 	<option value="Merah Maroon">Merah Maroon</option>
 </select>
 
-</div>
-<div class="form-group">
+</div> -->
+<!-- <div class="form-group">
 <label class="form-label">Foto Produk</label>
 	<input type="file" name="foto">
-</div>
+</div> -->
 
 <div class="form-actions">
 <div class="pull-right">

@@ -45,7 +45,6 @@
 <th>Nama Produk</th>
 <th>Ukuran</th>
 <th>Warna</th>
-<th>Gambar Produk</th>
 <th>Aksi</th>
 </tr>
 </thead>
@@ -55,18 +54,45 @@
     foreach ($array as $key) { ?>
         <td><?php echo $no; ?></td>
         <td><?php echo $key['nama_produk'] ?></td>
-        <td><?php
-        $ukuran = $this->db->query("SELECT * FROM tb_ukuran");
-         $volt=$key['ukuran'];
-        foreach ($ukuran->result() as $key2) {
-          if ($key2->id_ukuran== $volt) {
-            echo $key2->nama_ukuran;
+        <td>
+          <?php 
+          
+        $volt=$key['id_produk'];
+        $stok = $this->db->query("SELECT DISTINCT id_ukuran FROM tb_stok where id_produk=$volt");
+          if ($stok->num_rows() > 0) {
+            foreach ($stok->result() as $key20) {
+            $bahan_ukuran= $key20->id_ukuran;
+            $query_ukuran = $this->db->query("SELECT * FROM tb_ukuran where id_ukuran=$bahan_ukuran");
+            foreach ($query_ukuran->result() as $key21) {
+                echo $key21->nama_ukuran."<br>";
+              }
+            }
+          }else{
+            echo "Stok masih kosong";   
           }
-        }
-        
-        ?></td>
-        <td><?php echo $key['warna'] ?></td>
-        <td><button data-toggle="modal" data-target="#myModal<?php echo $no; ?>" type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>    </td>
+          
+          ?></td>
+        <td>
+          <?php 
+          
+        $volt=$key['id_produk'];
+        $stok = $this->db->query("SELECT DISTINCT id_warna FROM tb_stok where id_produk=$volt");
+          if ($stok->num_rows() > 0) {
+            foreach ($stok->result() as $key20) {
+            $bahan_warna= $key20->id_warna;
+            $query_warna = $this->db->query("SELECT * FROM tb_warna where id_warna=$bahan_warna");
+            foreach ($query_warna->result() as $key21) {
+                echo $key21->nama_warna."<br>";
+              }
+            }
+          }else{
+            echo "Stok masih kosong";   
+          }
+
+          // echo $key['warna'] 
+          
+          ?></td>
+<!--         <td><button data-toggle="modal" data-target="#myModal<?php echo $no; ?>" type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>    </td> -->
         <td>
 
             <a href="<?php echo base_url('admin/Produk/edit_produk/'.$key['id_produk']) ?>"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>    

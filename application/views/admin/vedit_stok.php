@@ -16,7 +16,7 @@
 <li>
 <p>Produk</p>
 </li>
-<li><a href="#" class="active">Edit Produk</a> </li>
+<li><a href="#" class="active">Edit Stok</a> </li>
 </ul>
 <div class="page-title"> 
 <!-- 	<i class="icon-custom-left"></i>
@@ -36,16 +36,32 @@
 </div> -->
 </div>
 <div class="grid-body no-border">
-<form action="<?php echo base_url('admin/Produk/edit_produk/'.$data[0]['id_produk']) ?>" id="form_traditional_validation" name="form_traditional_validation" role="form" autocomplete="off" method="post" class="validate" enctype="multipart/form-data">
+<form action="<?php echo base_url('admin/Produk/edit_stok/'.$data[0]['id_stok']) ?>" id="form_traditional_validation" name="form_traditional_validation" role="form" autocomplete="off" method="post" class="validate" enctype="multipart/form-data">
 
+
+
+<!-- <div class="form-group">
+<label class="form-label">Produk</label>
+
+<select readonly="readonly" class="form-control" name="ukuran" required="required">
+	  <option value="zero">--Pilih Produk--</option>
+	  <?php 
+	  $ukuran = $this->db->query("SELECT * FROM tb_produk");
+	  foreach($ukuran->result() as $row_kat)  { ?>
+	    <option value="<?php echo $row_kat->id_produk;?>"<?php echo ($row_kat->id_produk == $data[0]['id_produk'] ? 'selected="selected"' : ''); ?>><?php echo $row_kat->nama_produk; ?></option>
+	  <?php } ?>
+
+</select>
+</div> -->
 <div class="form-group">
-<label class="form-label">Nama Produk</label>
+<label class="form-label">Produk</label>
 <div class="input-with-icon right">
 <i class=""></i>
-<input class="form-control" id="form1CardHolderName" name="nama_produk" value="<?php echo  $data[0]['nama_produk'];?>" type="text" required>
+<input readonly="readonly" class="form-control" id="form1CardHolderName" name="nama_produk" type="text" value="<?php echo  $data[0]['id_produk'];?>" required>
 </div>
 </div>
-<!-- <div class="form-group">
+
+<div class="form-group">
 <label class="form-label">Ukuran</label>
 
 <select class="form-control" name="ukuran" required="required">
@@ -53,32 +69,42 @@
 	  <?php 
 	  $ukuran = $this->db->query("SELECT * FROM tb_ukuran");
 	  foreach($ukuran->result() as $row_kat)  { ?>
-	    <option value="<?php echo $row_kat->id_ukuran;?>"<?php echo ($row_kat->id_ukuran == $data[0]['ukuran'] ? 'selected="selected"' : ''); ?>><?php echo $row_kat->nama_ukuran; ?></option>
+	    <option value="<?php echo $row_kat->id_ukuran;?>"<?php echo ($row_kat->id_ukuran == $data[0]['id_ukuran'] ? 'selected="selected"' : ''); ?>><?php echo $row_kat->nama_ukuran; ?></option>
 	  <?php } ?>
 
 </select>
-</div> -->
-<!-- <div class="form-group">
+</div>
+<div class="form-group">
 <label class="form-label">Warna</label>
 <select class="form-control" name="warna" required="required">
-	<option value="Abu-abu"<?php echo ($data[0]['warna'] == "Abu-abu" ? 'selected="selected"' : ''); ?>>Abu-abu</option>
-	<option value="Dusty Pink"<?php echo ($data[0]['warna'] == "Dusty Pink" ? 'selected="selected"' : ''); ?>>Dusty Pink</option>
-	<option value="Ungu"<?php echo ($data[0]['warna'] == "Ungu" ? 'selected="selected"' : ''); ?>>Ungu</option>
-	<option value="Navy"<?php echo ($data[0]['warna'] == "Navy" ? 'selected="selected"' : ''); ?>>Navy</option>
-	<option value="Peach"<?php echo ($data[0]['warna'] == "Peach" ? 'selected="selected"' : ''); ?>>Peach</option>
-	<option value="Merah Maroon"<?php echo ($data[0]['warna'] == "Merah Maroon" ? 'selected="selected"' : ''); ?>>Merah Maroon</option>
-</select>
+	  <option value="zero">--Pilih Warna--</option>
+	  <?php 
+	  $warna = $this->db->query("SELECT * FROM tb_warna");
+	  foreach($warna->result() as $row_kat)  { ?>
+	    <option value="<?php echo $row_kat->id_warna;?>"<?php echo ($row_kat->id_warna == $data[0]['id_warna'] ? 'selected="selected"' : ''); ?>><?php echo $row_kat->nama_warna; ?></option>
+	  <?php } ?>
 
-</div> -->
-<!-- <div class="form-group">
+</select>
+</div>
+
+<div class="form-group">
+<label class="form-label">Jumlah Stok</label>
+<div class="input-with-icon right">
+<i class=""></i>
+<input class="form-control" id="form1CardHolderName" name="jumlah_stok" type="text" value="<?php echo  $data[0]['jumlah_stok'];?>" required>
+</div>
+</div>
+
+<div class="form-group">
 <label class="form-label">Foto Produk</label>
 	<input type="file" name="foto">
-</div> -->
+</div>
 
+</div>
 <div class="form-actions">
 <div class="pull-right">
 <button class="btn btn-success btn-cons" type="submit"><i class="icon-ok"></i> Simpan</button>
-<a href="<?php echo base_url('admin/Produk/daftarProduk'); ?>"><button class="btn btn-white btn-cons" type="button">Batal</button></a>
+<a href="<?php echo base_url('admin/Produk/stok'); ?>"><button class="btn btn-white btn-cons" type="button">Batal</button></a>
 </div>
 </div>
 </form>

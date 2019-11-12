@@ -184,19 +184,29 @@
 						<div class="pi-pic">
 							<img src="<?php echo base_url('upload/produk/'.$key['foto']) ?>" alt="">
 							<div class="pi-links">
-								<a href="<?php echo base_url('Home/detail/'.$key['id_produk']) ?>" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="<?php echo base_url('Home/detail/'.$key['id_stok']) ?>" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
 							</div>
 						</div>
 						<div class="pi-text">
 							<h6><?php
-							$ukuran=$key['ukuran'];
+							$ukuran=$key['id_ukuran'];
 					            $query_cekUkuran=$this->db->query("SELECT * FROM tb_ukuran where id_ukuran=$ukuran;");
 
 					            foreach ($query_cekUkuran->result() as $keyUkuran) {  
 					            	echo "Rp. ".$keyUkuran->harga;
 					            }							
 							 ?></h6>
-							<p><?php echo $key['nama_produk']; ?> </p>
+							<p>
+								<?php 
+
+								$bahan_produk=$key['id_produk'];
+								$query_cekProduk=$this->db->query("SELECT * FROM tb_produk where id_produk=$bahan_produk;");
+
+					            foreach ($query_cekProduk->result() as $keyProduk) {  
+					            	echo $keyProduk->nama_produk;
+					            }								 
+
+							?> </p>
 						</div>
 					</div>
 				</div>

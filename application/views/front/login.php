@@ -22,7 +22,7 @@
 				</div>
 				<div class="col-lg-6 contact-info">
 					<center><h3>LOGIN</h3></center>
-<!-- 					<p>Main Str, no 23, New York</p>
+<!-- 					<p>Main Str, no 23, New York</p> 
 					<p>+546 990221 123</p>
 					<p>hosting@contact.com</p>
 					<div class="contact-social">
@@ -32,9 +32,9 @@
 						<a href="#"><i class="fa fa-dribbble"></i></a>
 						<a href="#"><i class="fa fa-behance"></i></a>
 					</div> -->
-					<form class="contact-form">
-						<input type="text" placeholder="Username">
-						<input style="margin-top: 3%;" type="password" placeholder="Password">
+					<form class="contact-form" action="<?php echo base_url('Home/aksi_login/') ?>" method="post" enctype="multipart/form-data">
+						<input name="username" type="text" placeholder="Username">
+						<input style="margin-top: 3%;" type="password" name="password" placeholder="Password">
 <!-- 						<input type="text" placeholder="Subject">
 						<textarea placeholder="Message"></textarea> -->
 						<center><button style="margin-top: 7%;" class="site-btn">MASUK</button></center>
