@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2019 at 06:39 AM
+-- Generation Time: Nov 12, 2019 at 12:04 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -33,6 +33,14 @@ CREATE TABLE `tb_akses` (
   `nama_akses` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tb_akses`
+--
+
+INSERT INTO `tb_akses` (`id_akses`, `nama_akses`) VALUES
+(1, 'admin'),
+(2, 'customer');
+
 -- --------------------------------------------------------
 
 --
@@ -43,18 +51,26 @@ CREATE TABLE `tb_cart` (
   `id_cart` int(5) NOT NULL,
   `id_user` int(5) NOT NULL,
   `id_produk` int(5) NOT NULL,
+  `id_ukuran` int(7) NOT NULL,
+  `id_warna` int(7) NOT NULL,
   `jumlah_barang` varchar(8) NOT NULL,
-  `harga` varchar(100) NOT NULL,
-  `status` varchar(8) NOT NULL
+  `harga` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_cart`
 --
 
-INSERT INTO `tb_cart` (`id_cart`, `id_user`, `id_produk`, `jumlah_barang`, `harga`, `status`) VALUES
-(1, 1, 4, '3', '50000', 'aktif'),
-(2, 1, 6, '5', '80000', 'nonaktif');
+INSERT INTO `tb_cart` (`id_cart`, `id_user`, `id_produk`, `id_ukuran`, `id_warna`, `jumlah_barang`, `harga`) VALUES
+(1, 1, 4, 0, 0, '3', '50000'),
+(2, 1, 6, 0, 0, '5', '80000'),
+(4, 1, 7, 13, 2, '3', '780000'),
+(5, 1, 7, 13, 3, '1', '260000'),
+(6, 1, 7, 13, 2, '2', '520000'),
+(7, 1, 7, 13, 2, '2', '520000'),
+(8, 1, 7, 13, 2, '2', '520000'),
+(9, 1, 7, 1, 2, '1', '220000'),
+(10, 1, 7, 1, 2, '1', '220000');
 
 -- --------------------------------------------------------
 
@@ -67,16 +83,48 @@ CREATE TABLE `tb_produk` (
   `nama_produk` varchar(100) NOT NULL,
   `ukuran` int(5) NOT NULL,
   `warna` varchar(100) NOT NULL,
-  `foto` varchar(100) NOT NULL
+  `foto` varchar(100) NOT NULL,
+  `stok` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_produk`
 --
 
-INSERT INTO `tb_produk` (`id_produk`, `nama_produk`, `ukuran`, `warna`, `foto`) VALUES
-(4, 'Baroees', 13, 'Peach', 'Produk__1573335875.jpg'),
-(6, 'Cute Wing', 7, 'Navy', 'Produk__1573335875.jpg');
+INSERT INTO `tb_produk` (`id_produk`, `nama_produk`, `ukuran`, `warna`, `foto`, `stok`) VALUES
+(7, 'Aisyah Kid', 1, 'Abu-abu', 'Produk__1573368061.jpg', 10),
+(8, 'Example 2', 7, 'Dusty Pink', 'Produk__1573368080.jpg', 5),
+(9, 'Example 3', 8, 'Dusty Pink', 'Produk__1573368103.jpg', 10),
+(10, 'Example 4', 10, 'Ungu', 'Produk__1573368118.png', 3),
+(11, 'Example 5', 11, 'Peach', 'Produk__1573368136.png', 3),
+(12, 'Example 6', 12, 'Merah Maroon', 'Produk__1573368151.png', 7),
+(13, 'Example 7', 13, 'Ungu', 'Produk__1573368168.jpg', 18),
+(14, 'Example 8', 9, 'Peach', 'Produk__1573368222.jpg', 17),
+(15, 'GO Baju', 0, '', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_stok`
+--
+
+CREATE TABLE `tb_stok` (
+  `id_stok` int(7) NOT NULL,
+  `id_produk` int(7) NOT NULL,
+  `id_ukuran` int(7) NOT NULL,
+  `id_warna` int(7) NOT NULL,
+  `foto` varchar(100) NOT NULL,
+  `jumlah_stok` int(7) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_stok`
+--
+
+INSERT INTO `tb_stok` (`id_stok`, `id_produk`, `id_ukuran`, `id_warna`, `foto`, `jumlah_stok`) VALUES
+(5, 7, 1, 2, 'Produk__1573476778.jpg', 0),
+(6, 7, 1, 3, 'Produk__1573477194.jpg', 3),
+(7, 7, 13, 2, 'Produk__1573518038.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -157,15 +205,41 @@ CREATE TABLE `tb_user` (
   `alamat` varchar(100) NOT NULL,
   `telp` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  `id_akses` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_user`
 --
 
-INSERT INTO `tb_user` (`id_user`, `nama_user`, `gmail`, `alamat`, `telp`, `username`, `password`) VALUES
-(1, 'Moch Nirwan Firdaus', 'nirwanfirdaus4@gmail.com', 'Jl. Bandulan 1f no: 50B', '08814954125', 'nirwan', 'nirwan');
+INSERT INTO `tb_user` (`id_user`, `nama_user`, `gmail`, `alamat`, `telp`, `username`, `password`, `id_akses`) VALUES
+(1, 'Moch Nirwan Firdaus', 'nirwanfirdaus4@gmail.com', 'Jl. Bandulan 1f no: 50B', '08814954125', 'nirwan', 'nirwan', 1),
+(2, 'Vega Rogolimo', 'rogo@gmail.com', 'Perum bukit Tidar', '0884232312', 'vega', 'vega', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_warna`
+--
+
+CREATE TABLE `tb_warna` (
+  `id_warna` int(7) NOT NULL,
+  `nama_warna` varchar(100) NOT NULL,
+  `kode_warna` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_warna`
+--
+
+INSERT INTO `tb_warna` (`id_warna`, `nama_warna`, `kode_warna`) VALUES
+(1, 'Abu-Abu', '#95a5a6'),
+(2, 'Dusty Pink', '#d494af'),
+(3, 'Ungu', '#9b59b6'),
+(4, 'Navy', '#000080'),
+(5, 'Peach', '#fea176'),
+(6, 'Merah Maroon', '#800000');
 
 --
 -- Indexes for dumped tables
@@ -190,6 +264,12 @@ ALTER TABLE `tb_produk`
   ADD PRIMARY KEY (`id_produk`);
 
 --
+-- Indexes for table `tb_stok`
+--
+ALTER TABLE `tb_stok`
+  ADD PRIMARY KEY (`id_stok`);
+
+--
 -- Indexes for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
@@ -208,6 +288,12 @@ ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`id_user`);
 
 --
+-- Indexes for table `tb_warna`
+--
+ALTER TABLE `tb_warna`
+  ADD PRIMARY KEY (`id_warna`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -215,19 +301,25 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT for table `tb_akses`
 --
 ALTER TABLE `tb_akses`
-  MODIFY `id_akses` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_akses` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_cart`
 --
 ALTER TABLE `tb_cart`
-  MODIFY `id_cart` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_cart` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tb_produk`
 --
 ALTER TABLE `tb_produk`
-  MODIFY `id_produk` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_produk` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `tb_stok`
+--
+ALTER TABLE `tb_stok`
+  MODIFY `id_stok` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_transaksi`
@@ -245,7 +337,13 @@ ALTER TABLE `tb_ukuran`
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tb_warna`
+--
+ALTER TABLE `tb_warna`
+  MODIFY `id_warna` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
