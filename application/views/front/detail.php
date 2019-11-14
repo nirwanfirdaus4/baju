@@ -47,7 +47,7 @@
 		            }
 
 					?></h2>
-					<h3 class="p-price"><?php 
+					<h3 id="state_harga" class="p-price"><?php 
 					$ukuran=$data[0]['id_ukuran'];
 					            $query_cekUkuran=$this->db->query("SELECT * FROM tb_ukuran where id_ukuran=$ukuran;");
 
@@ -78,9 +78,10 @@
 
 				            foreach ($query_stok0->result() as $keyStok) { 
 								$barang_stok=$keyStok->id_produk;
-
 								$hit=0;
 					            foreach ($query_warna0->result() as $keyWarna) { 
+								$data_warni=$keyWarna->id_warna;
+
 									if ($hit==7 || $hit==13 || $hit==19 || $hit==25 || $hit==31 || $hit==37 || $hit==43 || $hit==49 || $hit==55 || $hit==61) {
 										echo "<br>";
 									}
@@ -89,33 +90,71 @@
 									$query_stok1 = $this->db->query("SELECT * FROM tb_stok where id_produk=$barang_stok AND id_warna=$key1");
 
 									if ($query_stok1->num_rows()>0) {
-							            foreach ($query_stok1->result() as $keyStok2) { 
+							            foreach ($query_stok1->result() as $keyStok2) {
+
+							            if ($keyStok2->jumlah_stok<1) {$no_view=1;}else{$no_view=0;} 
+
 											$show1=$keyStok2->jumlah_stok;
 											$show2=$keyStok2->id_produk;
 							            }
 											$show3=$keyWarna->id_warna;
+
+										if ($no_view==1) { ?>
+											<div class="cs-item" >
+												<input type="radio" disabled="disabled" name="cs" id="<?php echo "cs-".$hit; ?>">
+												<label disabled="disabled" class="cs-gray" for="<?php echo "cs-".$hit; ?>" style="background:<?php echo $keyWarna->kode_warna;?>;">
+													<span>(0)</span>
+												</label>
+											</div>
+										<?php }else{ ?>
+											<input type="hidden" value="<?php echo $key0; ?>" name="id_stok">
+											<input type="hidden" value="<?php echo $barang_stok; ?>" name="id_produk">
+											<?php
+
+											if ($data_warni==$data_warna) { ?>
+											<div class="cs-item" >
+												<input type="hidden" value="<?php echo $data_warna; ?>" name="support_warna">
+												<input checked="checked" disabled="disabled" type="radio" value="<?php echo $show3; ?>" name="cs" id="<?php echo "cs-".$hit; ?>">
+
+												<label  checked="checked" class="cs-gray" for="<?php echo "cs-".$hit; ?>" style="background:<?php echo $keyWarna->kode_warna;?>;">
+
+											<a href="<?php echo base_url('Home/show/'.$show2.'/'.$show3); ?>">	
+													<span>(<?php 
+														$total=0;
+											            foreach ($query_stok1->result() as $keyStok2) { 
+															$total= $total+$keyStok2->jumlah_stok;
+											            }
+											            echo $total.")<br>Lihat";
+														?>
+													</span>
+													</a>													
+												</label>
+											</div>
+											<?php }else{ ?>
+												<div class="cs-item" >
+													<input disabled="disabled" type="radio" value="<?php echo $show3; ?>" name="cs" id="<?php echo "cs-".$hit; ?>">
+
+													<label class="cs-gray" for="<?php echo "cs-".$hit; ?>" style="background:<?php echo $keyWarna->kode_warna;?>;">
+
+												<a href="<?php echo base_url('Home/show/'.$show2.'/'.$show3); ?>">	
+														<span>(<?php 
+															$total=0;
+												            foreach ($query_stok1->result() as $keyStok2) { 
+																$total= $total+$keyStok2->jumlah_stok;
+												            }
+												            echo $total.")<br>Lihat";
+															?>
+														</span>
+														</a>													
+													</label>
+												</div>
+											<?php }
+											?>
+
+
+										<?php }
 										?>	
 
-										<input type="hidden" value="<?php echo $key0; ?>" name="id_stok">
-										<input type="hidden" value="<?php echo $barang_stok; ?>" name="id_produk">
-										<div class="cs-item" >
-											<input type="radio" value="<?php echo $show3; ?>" name="cs" id="<?php echo "cs-".$hit; ?>">
-
-											<label class="cs-gray" for="<?php echo "cs-".$hit; ?>" style="background:<?php echo $keyWarna->kode_warna;?>;">
-
-										<a href="<?php echo base_url('Home/show/'.$show2.'/'.$show3); ?>">	
-												<span>(<?php 
-													$total=0;
-										            foreach ($query_stok1->result() as $keyStok2) { 
-														$total= $total+$keyStok2->jumlah_stok;
-										            }
-										            echo $total;
-													?>)
-												</span>
-												</a>													
-											</label>
-
-										</div>
 									<?php }else{ ?>
 										<div class="cs-item" >
 											<input type="radio" disabled="disabled" name="cs" id="<?php echo "cs-".$hit; ?>">
@@ -138,9 +177,10 @@
 						$query_ukuran0 = $this->db->query("SELECT * FROM tb_ukuran");
 						$produk9=$data[0]['id_produk'];
 
-						$hit2=1;
-			            foreach ($query_ukuran0->result() as $keyUkuran) { 						
-
+						$hit2=1; 
+			            foreach ($query_ukuran0->result() as $keyUkuran) { ?> 						
+							<input type="hidden" value="<?php echo $keyUkuran->harga; ?>" id="<?php echo $hit2."8008"; ?>"> 
+						<?php
 						if ($hit2==7 || $hit==13 || $hit==19 || $hit==25 || $hit==31 || $hit==37 || $hit==43 || $hit==49 || $hit==55 || $hit==61) {
 							echo "<br>";
 						}
@@ -158,13 +198,14 @@
 
 				            ?>
 							<div class="sc-item">
-									<input type="radio" value="<?php echo $id_ukuran; ?>" name="sc" id="<?php echo $id_ukuran."size" ; ?>">
+
+									<input onclick="set_harga(<?php echo $hit2."8008"; ?>)" type="radio" value="<?php echo $keyUkuran->id_ukuran; ?>" name="sc" id="<?php echo $id_ukuran."size" ; ?>">
 									<label for="<?php echo $id_ukuran."size" ; ?>"><?php echo $nama_ukuran9 ; ?></label>
 								</div>
 							<?php }else{ ?>
 								<div class="sc-item disable">
-									<input type="radio" name="sc" id="<?php echo $id_ukuran."size" ; ?>" disabled="disabled">
-									<label for="<?php echo $id_ukuran."size" ; ?>"><?php echo $nama_ukuran9 ; ?></label>
+									<input type="radio" name="sc" disabled="disabled">
+									<label for=""><?php echo $nama_ukuran9 ; ?></label>
 								</div>
 							<?php }
 							$hit2++;
@@ -240,72 +281,40 @@
 				<h2>PRODUK TERKAIT</h2>
 			</div>
 			<div class="product-slider owl-carousel">
+				<?php
+				    foreach ($data2 as $keys) {	
+
+				 ?>
 				<div class="product-item">
 					<div class="pi-pic">
-						<img src="<?php echo base_url('assets_front/img/product/1.jpg'); ?>" alt="">
+						<img src="<?php echo base_url('upload/produk/'.$keys['foto']); ?>" alt="">
 						<div class="pi-links">
-							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+							<a href="<?php echo base_url('Home/detail/'.$keys['id_stok']) ?>" class="add-card"><i class="flaticon-bag"></i><span>TAMBAHKAN</span></a>
 						</div>
 					</div>
 					<div class="pi-text">
-						<h6>$35,00</h6>
-						<p>Flamboyant Pink Top </p>
+						<h6><?php
+							$ukuran=$keys['id_ukuran'];
+					            $query_cekUkuran=$this->db->query("SELECT * FROM tb_ukuran where id_ukuran=$ukuran;");
+
+					            foreach ($query_cekUkuran->result() as $keyUkuran) {  
+					            	echo "Rp. ".$keyUkuran->harga;
+					            }							
+							 ?></h6>
+							<p>
+								<?php 
+
+								$bahan_produk=$keys['id_produk'];
+								$query_cekProduk=$this->db->query("SELECT * FROM tb_produk where id_produk=$bahan_produk;");
+
+					            foreach ($query_cekProduk->result() as $keyProduk) {  
+					            	echo $keyProduk->nama_produk;
+					            }								 
+
+							?> </p>
 					</div>
 				</div>
-				<div class="product-item">
-					<div class="pi-pic">
-						<div class="tag-new">New</div>
-						<img src="<?php echo base_url('assets_front/img/product/2.jpg'); ?>" alt="">
-						<div class="pi-links">
-							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-						</div>
-					</div>
-					<div class="pi-text">
-						<h6>$35,00</h6>
-						<p>Black and White Stripes Dress</p>
-					</div>
-				</div>
-				<div class="product-item">
-					<div class="pi-pic">
-						<img src="<?php echo base_url('assets_front/img/product/3.jpg'); ?>" alt="">
-						<div class="pi-links">
-							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-						</div>
-					</div>
-					<div class="pi-text">
-						<h6>$35,00</h6>
-						<p>Flamboyant Pink Top </p>
-					</div>
-				</div>
-				<div class="product-item">
-						<div class="pi-pic">
-							<img src="<?php echo base_url('assets_front/img/product/4.jpg'); ?>" alt="">
-							<div class="pi-links">
-								<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-								<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-							</div>
-						</div>
-						<div class="pi-text">
-							<h6>$35,00</h6>
-							<p>Flamboyant Pink Top </p>
-						</div>
-					</div>
-				<div class="product-item">
-					<div class="pi-pic">
-						<img src="<?php echo base_url('assets_front/img/product/6.jpg'); ?>" alt="">
-						<div class="pi-links">
-							<a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-							<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-						</div>
-					</div>
-					<div class="pi-text">
-						<h6>$35,00</h6>
-						<p>Flamboyant Pink Top </p>
-					</div>
-				</div>
+			<?php } ?>
 			</div>
 		</div>
 	</section>
@@ -314,3 +323,12 @@
 
 <?php $this->load->view('front/footer') ?>
 
+<script type="text/javascript">
+
+  function set_harga($harga){
+    var siap_harga = document.getElementById($harga).value;
+	document.getElementById("state_harga").innerHTML = "Rp. "+siap_harga;
+
+  }
+
+</script>

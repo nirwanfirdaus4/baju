@@ -2,10 +2,17 @@
 	<!-- Page info -->
 	<div class="page-top-info">
 		<div class="container">
-			<h4>DAFTAR PRODUK</h4>
+			<h4>HASIL PENCARIAN :</h4><br>
 			<div class="site-pagination">
-				<a href="">Beranda</a> /
-				<a href="">Produk</a> /
+				<?php
+					if ($sub_warna=="") { ?>
+						<p>Ukuran <?php echo "<b>".$sub_nama_ukuran."</b>";?></p>
+					<?php }elseif ($sub_ukuran=="") { ?>
+						<p>Warna <?php echo "<b>".$sub_nama_warna."</b>";?></p>
+					<?php }else{ ?>
+						<p>Warna <?php echo "<b>".$sub_nama_warna."</b><br>Ukuran <b>".$sub_nama_ukuran."</b>"; ?></p>
+					<?php }
+				 ?>
 			</div>
 		</div>
 	</div>
@@ -21,6 +28,8 @@
 					<div class="filter-widget mb-0">
 						<h2 class="fw-title">warna</h2>
 						<div class="fw-color-choose">
+							<input type="hidden" id="sub_warna">
+							<input type="hidden" id="sub_ukuran">
 							<?php $query_warna = $this->db->query("SELECT * FROM tb_warna");
 								$hit=0;
 						        foreach ($query_warna->result() as $keyStok9) {  ?>    							
@@ -65,8 +74,8 @@
 
 				            ?>
 							<div class="sc-item">
-									<input onclick="set_ukuran(<?php echo $keyUkuran->id_ukuran."7007"; ?>)" type="radio" value="<?php echo $keyUkuran->id_ukuran; ?>" name="sc" id="<?php echo $keyUkuran->id_ukuran."1"; ?>">
-									<label for="<?php echo $keyUkuran->id_ukuran."7007"; ?>"><?php echo $keyUkuran->nama_ukuran; ?></label>
+									<input onclick="set_ukuran(<?php echo $keyUkuran->id_ukuran."1"; ?>)" type="radio" value="<?php echo $keyUkuran->id_ukuran; ?>" name="sc" id="<?php echo $keyUkuran->id_ukuran."1"; ?>">
+									<label for="<?php echo $keyUkuran->id_ukuran."1"; ?>"><?php echo $keyUkuran->nama_ukuran; ?></label>
 								</div>
 							<?php }else{ ?>
 
@@ -90,6 +99,10 @@
 				<div class="col-lg-9  order-1 order-lg-2 mb-5 mb-lg-0">
 					<div class="row">
 						<?php
+
+							if ($status_data=="kosong") { ?>
+								<center><p align="right" style="font-size: 120%;"> " Produk Yang Anda Cari Sedang Kosong "</p></center>
+							<?php }
 						    foreach ($array as $key) {	
 
 						 ?>

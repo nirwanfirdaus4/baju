@@ -54,7 +54,6 @@
 <tr class="odd gradeX">
     <?php $no = 1;
     foreach ($array as $key) { ?>
-<!--         <td><?php echo $no; ?></td> -->
         <td>
          <?php
          $idUser=$key['id_user'];         
@@ -64,31 +63,11 @@
          }?>           
          </td>
         <td>
-          <?php 
-          $hargaTotal=0;
-          for ($i=1; $i <=10 ; $i++) { 
-            $cart= $key['id_cart'.$i];
-            if ($cart!="0") {
-              // echo $cart."<br>";
-          $query_cekCart=$this->db->query("SELECT * FROM tb_cart where id_cart=$cart");
-
-              foreach ($query_cekCart->result() as $keyCart) {
-
-          $query_cekProduk=$this->db->query("SELECT * FROM tb_produk where id_produk=$keyCart->id_produk");
-
-          foreach ($query_cekProduk->result() as $keyProduk) {
-                        echo $keyProduk->nama_produk." (".$keyCart->jumlah_barang.")<br>";
-                        $hargaTotal=$hargaTotal+$keyCart->harga;
-                   }
-              }
-            }
-          }
-              echo "<br><b>Harga :</b><br>Rp. ".$hargaTotal."</b>";
-          ?>
+          <button data-toggle="modal" data-target="#pesan<?php echo $no; ?>" type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>          
         </td>
         <td><?php echo "<b>tujuan:</b><br>".$key['tujuan_pengiriman']."<br><br><b>".$key['ekspedisi']."</b><br>Rp. ".$key['biaya_ekspedisi'] ?></td>
         <td><?php echo "Rp. ".$key['total_biaya'] ?></td>
-        <td><?php echo $key['penerima'] ?><br><?php echo $key['cp'] ?></td>        
+        <td><?php echo $key['penerima'] ?><br>[ <?php echo $key['cp'] ?> ]</td>        
         <td>
         <?php
           if ($key['status_transaksi']=="validasi_pesanan" || $key['status_transaksi']=="pembayaran") { ?>
@@ -108,9 +87,9 @@
           <?php }elseif ($key['status_transaksi']=="validasi_pembayaran"){ ?>
             <button type="button" data-toggle="modal" data-target="#modalValidPembayaran<?php echo $no; ?>" class="btn btn-primary"><i class="fa fa-clipboard"></i> Validasi pembayaran</button>                   
           <?php }elseif ($key['status_transaksi']=="invalid"){ ?>
-              <button type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Tidak Valid</button>          
+              <button data-toggle="modal" data-target="#modalValidPembayaran<?php echo $no; ?>" type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Tidak Valid</button>          
           <?php }else{ ?>
-              <button type="button" class="btn btn-valid"><i class="fa fa-check-square"></i> Valid</button>            
+              <button data-toggle="modal" data-target="#modalValidPembayaran<?php echo $no; ?>" type="button" class="btn btn-primary"><i class="fa fa-check-square"></i> Valid</button>            
           <?php }
 
           ?>
@@ -129,19 +108,19 @@
           <form action="<?php echo base_url('admin/Produk/validasi_pesanan/'.$key['id_transaksi']) ?>" id="form_traditional_validation" name="form_traditional_validation" role="form" autocomplete="off" method="post" class="validate" enctype="multipart/form-data">
 
           <div class="form-group">
-          <label class="form-label">Ekspedisi</label>
-          <div class="input-with-icon right">
-          <i class=""></i>
-          <input class="form-control" value="<?php echo $key['ekspedisi'] ?>" type="text" readonly="readonly">
-          </div>
-          </div>
-          <div class="form-group">
           <label class="form-label">Tujuan</label>
           <div class="input-with-icon right">
           <i class=""></i>
           <input class="form-control" value="<?php echo $key['tujuan_pengiriman'] ?>" type="textarea" readonly="readonly">
           </div>
           </div>
+          <div class="form-group">
+          <label class="form-label">Ekspedisi</label>
+          <div class="input-with-icon right">
+          <i class=""></i>
+          <input class="form-control" name="nama_ekspedisi" type="text" placeholder="">
+          </div>
+          </div>          
           <div class="form-group">
           <label class="form-label">Biaya</label>
           <div class="input-with-icon right">
@@ -198,6 +177,57 @@
         </div>
         <div class="modal-body">
           <center><img style="margin-top: 7%; margin-bottom: 7%; " width="80%" src="<?php echo base_url('upload/bukti/'.$key['bukti_transfer']); ?>"></center>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="pesan<?php echo $no; ?>" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Daftar Pesanan</h4>
+        </div>
+        <div class="modal-body" style="padding-top: 7%;">
+          <?php 
+          $hargaTotal=0;
+          for ($i=1; $i <=10 ; $i++) { 
+            $cart= $key['id_cart'.$i];
+            if ($cart!="0") {
+
+          $query_cekCart=$this->db->query("SELECT * FROM tb_cart where id_cart=$cart");
+
+              foreach ($query_cekCart->result() as $keyCart) {
+
+              $bahan_warna = $keyCart->id_warna;
+              $bahan_ukuran = $keyCart->id_ukuran;
+              $query_warna=$this->db->query("SELECT * FROM tb_warna where id_warna=$bahan_warna");
+              $query_ukuran=$this->db->query("SELECT * FROM tb_ukuran where id_ukuran=$bahan_ukuran");
+              foreach ($query_warna->result() as $keyWarna) {
+                $is_warna = $keyWarna->nama_warna;
+              }
+              foreach ($query_ukuran->result() as $keyUkuran) {
+                $is_ukuran = $keyUkuran->nama_ukuran;
+              }
+          $query_cekCart=$this->db->query("SELECT * FROM tb_cart where id_cart=$cart");
+
+          $query_cekProduk=$this->db->query("SELECT * FROM tb_produk where id_produk=$keyCart->id_produk");
+
+          foreach ($query_cekProduk->result() as $keyProduk) {
+                        echo "<p style='font-size:110%;'>"."<b>".$keyProduk->nama_produk."</b> - Ukuran <b>".$is_ukuran."</b> - Warna <b>".$is_warna."</b>"." (".$keyCart->jumlah_barang.")<br></p>";
+                        $hargaTotal=$hargaTotal+$keyCart->harga;
+                   }
+
+              }
+
+            }
+          }
+              echo "<br><p style='font-size:110%;'>Harga :<br><b>Rp. ".$hargaTotal."</b></p>";
+          ?>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

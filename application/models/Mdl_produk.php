@@ -84,8 +84,8 @@ class Mdl_produk extends CI_Model
 
 	public function validasi_pesanan($send)
 	{
-		$sql = "UPDATE tb_transaksi SET status_transaksi = ?, biaya_ekspedisi = ?,total_biaya = ? WHERE id_transaksi = ?";
-		$query = $this->db->query($sql, array($send['status_transaksi'],$send['biaya_ekspedisi'],$send['total_biaya'], $send['id_transaksi']));
+		$sql = "UPDATE tb_transaksi SET status_transaksi = ?, ekspedisi = ?, biaya_ekspedisi = ?,total_biaya = ? WHERE id_transaksi = ?";
+		$query = $this->db->query($sql, array($send['status_transaksi'],$send['ekspedisi'],$send['biaya_ekspedisi'],$send['total_biaya'], $send['id_transaksi']));
 	}
 
 	public function validasi_pembayaran($send)

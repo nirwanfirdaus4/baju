@@ -316,7 +316,7 @@
 				</div> -->
 			</div>
 			<div class="text-center pt-5">
-				<button class="site-btn sb-line sb-dark">LIHAT PRODUK LAIN</button>
+				<a href="<?php echo base_url('Home/produk/'); ?>"><button class="site-btn sb-line sb-dark">LIHAT PRODUK LAIN</button></a>
 			</div>
 		</div>
 	</section>

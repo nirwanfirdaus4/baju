@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2019 at 12:04 PM
+-- Generation Time: Nov 14, 2019 at 07:43 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -54,23 +54,28 @@ CREATE TABLE `tb_cart` (
   `id_ukuran` int(7) NOT NULL,
   `id_warna` int(7) NOT NULL,
   `jumlah_barang` varchar(8) NOT NULL,
-  `harga` varchar(100) NOT NULL
+  `harga` varchar(100) NOT NULL,
+  `status` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_cart`
 --
 
-INSERT INTO `tb_cart` (`id_cart`, `id_user`, `id_produk`, `id_ukuran`, `id_warna`, `jumlah_barang`, `harga`) VALUES
-(1, 1, 4, 0, 0, '3', '50000'),
-(2, 1, 6, 0, 0, '5', '80000'),
-(4, 1, 7, 13, 2, '3', '780000'),
-(5, 1, 7, 13, 3, '1', '260000'),
-(6, 1, 7, 13, 2, '2', '520000'),
-(7, 1, 7, 13, 2, '2', '520000'),
-(8, 1, 7, 13, 2, '2', '520000'),
-(9, 1, 7, 1, 2, '1', '220000'),
-(10, 1, 7, 1, 2, '1', '220000');
+INSERT INTO `tb_cart` (`id_cart`, `id_user`, `id_produk`, `id_ukuran`, `id_warna`, `jumlah_barang`, `harga`, `status`) VALUES
+(1, 1, 4, 0, 0, '3', '50000', ''),
+(2, 1, 6, 0, 0, '5', '80000', ''),
+(4, 1, 7, 13, 2, '3', '780000', ''),
+(5, 1, 7, 13, 3, '1', '260000', ''),
+(6, 1, 7, 13, 2, '2', '520000', ''),
+(7, 1, 7, 13, 2, '2', '520000', ''),
+(8, 1, 7, 13, 2, '2', '520000', ''),
+(9, 1, 7, 1, 2, '1', '220000', ''),
+(15, 2, 7, 1, 2, '2', '440000', 'pasif'),
+(17, 2, 7, 1, 3, '1', '220000', 'pasif'),
+(18, 2, 7, 13, 2, '1', '260000', 'aktif'),
+(19, 2, 7, 1, 3, '1', '220000', 'aktif'),
+(22, 2, 7, 9, 4, '3', '720000', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -122,9 +127,10 @@ CREATE TABLE `tb_stok` (
 --
 
 INSERT INTO `tb_stok` (`id_stok`, `id_produk`, `id_ukuran`, `id_warna`, `foto`, `jumlah_stok`) VALUES
-(5, 7, 1, 2, 'Produk__1573476778.jpg', 0),
-(6, 7, 1, 3, 'Produk__1573477194.jpg', 3),
-(7, 7, 13, 2, 'Produk__1573518038.jpg', 1);
+(6, 7, 1, 3, 'Produk__1573477194.jpg', 1),
+(7, 7, 13, 2, 'Produk__1573518038.jpg', 1),
+(8, 7, 9, 4, 'Produk__1573709761.jpg', 7),
+(9, 7, 15, 4, 'Produk__1573709823.png', 4);
 
 -- --------------------------------------------------------
 
@@ -161,7 +167,8 @@ CREATE TABLE `tb_transaksi` (
 --
 
 INSERT INTO `tb_transaksi` (`id_transaksi`, `id_user`, `id_cart1`, `id_cart2`, `id_cart3`, `id_cart4`, `id_cart5`, `id_cart6`, `id_cart7`, `id_cart8`, `id_cart9`, `id_cart10`, `ekspedisi`, `harga_produk`, `biaya_ekspedisi`, `total_biaya`, `tujuan_pengiriman`, `penerima`, `cp`, `bukti_transfer`, `status_transaksi`) VALUES
-(3, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 'JNE', '130000', '5000', '135000', 'Jl. bandulan 1F', 'Nirwan', '08812233435', '', 'invalid');
+(3, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 'JNE', '130000', '5000', '135000', 'Jl. bandulan 1F', 'Nirwan', '08812233435', '', 'invalid'),
+(5, 2, 15, 17, 0, 0, 0, 0, 0, 0, 0, 0, 'JNE', '660000', '25000', '685000', 'Perum bukit Tidar', 'Vega Bilamonos sdsdssd', '0884232312', 'Bukti__1573649360.jpg', 'valid');
 
 -- --------------------------------------------------------
 
@@ -215,7 +222,7 @@ CREATE TABLE `tb_user` (
 
 INSERT INTO `tb_user` (`id_user`, `nama_user`, `gmail`, `alamat`, `telp`, `username`, `password`, `id_akses`) VALUES
 (1, 'Moch Nirwan Firdaus', 'nirwanfirdaus4@gmail.com', 'Jl. Bandulan 1f no: 50B', '08814954125', 'nirwan', 'nirwan', 1),
-(2, 'Vega Rogolimo', 'rogo@gmail.com', 'Perum bukit Tidar', '0884232312', 'vega', 'vega', 2);
+(2, 'Vega Bilamonos sdsdssd', 'rogo@gmail.com', 'Perum bukit Tidar', '0884232312', 'vega', 'vega', 2);
 
 -- --------------------------------------------------------
 
@@ -307,7 +314,7 @@ ALTER TABLE `tb_akses`
 -- AUTO_INCREMENT for table `tb_cart`
 --
 ALTER TABLE `tb_cart`
-  MODIFY `id_cart` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_cart` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tb_produk`
@@ -319,13 +326,13 @@ ALTER TABLE `tb_produk`
 -- AUTO_INCREMENT for table `tb_stok`
 --
 ALTER TABLE `tb_stok`
-  MODIFY `id_stok` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_stok` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
-  MODIFY `id_transaksi` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_transaksi` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_ukuran`

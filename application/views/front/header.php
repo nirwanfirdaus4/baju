@@ -57,7 +57,7 @@
 							<img src="<?php echo base_url('assets_front/img/logo.png') ?>" alt="">
 						</a>
 					</div>
-					<div class="col-xl-6 col-lg-5">
+					<div class="col-xl-5 col-lg-4">
 						<form class="header-search-form">
 							<input type="text" placeholder="Cari ....">
 							<button><i class="flaticon-search"></i></button>
@@ -66,18 +66,30 @@
 					<div class="col-xl-1 col-lg-1">
 						
 					</div>
-					<div class="col-xl-3 col-lg-4">
-						<div class="user-panel">
+					<div class="col-xl-4 col-lg-5">
+						<div class="user-panel header_magic_1">
 							<div class="up-item">
 								<i class="flaticon-profile"></i>
-								<a href="#">Masuk</a>
+
+								<?php 
+									if ($this->session->userdata('hak_akses') == 2) { ?>
+										<a href="#"><?php echo $this->session->userdata('ses_nama'); ?></a>
+									<?php }else{ ?>
+										<a href="<?php echo base_url('Home/login') ?>">Masuk</a>
+									<?php }
+								?>
+
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
 									<span>0</span>
 								</div>
-								<a href="<?php echo base_url('Home/keranjang'); ?>">Shopping Cart</a>
+								<a href="<?php 
+								$v_user =$this->session->userdata('id_user');
+								echo base_url('Home/keranjang/'.$v_user); 
+
+								?>">Keranjang</a>
 							</div>
 						</div>
 					</div>
@@ -92,7 +104,45 @@
 					<li><a href="<?php echo base_url('Home/'); ?>">Beranda</a></li>
 					<li><a href="<?php echo base_url('Home/produk/'); ?>">Produk</a></li>
 					<li><a href="<?php echo base_url('Home/kontak/'); ?>">Kontak</a></li>
-					<li><a href="<?php echo base_url('Home/login/'); ?>">Masuk</a></li>
+					<li class="header_magics">
+					
+						<?php 
+							if ($this->session->userdata('hak_akses') == 2) { 
+								$ses_user=$this->session->userdata('id_user');
+								$ses_nama_user=$this->session->userdata('ses_nama');
+								?>
+						<a href=""><?php echo $ses_nama_user; ?></a>
+						<ul class="sub-menu">
+							<li><a href="<?php echo base_url('Home/profil/'.$ses_user); ?>">Profil</a></li>
+							<li><a href="<?php echo base_url('Home/keranjang/'.$ses_user); ?>">Keranjang Saya</a></li>
+							<li><a href="<?php echo base_url('Home/transaksi/'.$ses_user); ?>">Transaksi Saya</a></li>
+							<li><a href="<?php echo base_url('Home/logout_x/'); ?>">Keluar</a></li>
+						</ul>
+							<?php }else{
+
+							}
+								?>
+					
+					</li>
+					<li class="header_magics2">
+					
+						<?php 
+							if ($this->session->userdata('hak_akses') == 2) { 
+								$ses_user=$this->session->userdata('id_user');
+								$ses_nama_user=$this->session->userdata('ses_nama');
+								?>
+						<a href="">Akun</a>
+						<ul class="sub-menu">
+							<li><a href="<?php echo base_url('Home/profil/'.$ses_user); ?>">Profil Saya</a></li>
+							<li><a href="<?php echo base_url('Home/transaksi/'.$ses_user); ?>">Transaksi Saya</a></li>
+							<li><a href="<?php echo base_url('Home/logout_x/'); ?>">Keluar</a></li>
+						</ul>
+							<?php }else{
+
+							}
+								?>
+					
+					</li>
 <!-- 					<li><a href="#">Jewelry
 						<span class="new">New</span>
 					    </a>

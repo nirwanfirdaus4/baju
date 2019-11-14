@@ -258,6 +258,7 @@ class Produk extends CI_Controller {
     public function validasi_pesanan($id_transaksi)
     {
         $this->form_validation->set_rules('biaya_ekspedisi', 'biaya_ekspedisi', 'trim|required');
+        $this->form_validation->set_rules('nama_ekspedisi', 'nama_ekspedisi', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
             redirect('admin/Produk/transaksi');
@@ -268,6 +269,7 @@ class Produk extends CI_Controller {
             foreach ($query_cekTrans->result() as $keyTrans) {       
                 $hargaTotal=$hargaTotal+$keyTrans->harga_produk;
             }
+            $send['ekspedisi'] = $this->input->post('nama_ekspedisi');
             $send['biaya_ekspedisi'] = $this->input->post('biaya_ekspedisi');
             $send['total_biaya'] = $send['biaya_ekspedisi']+$hargaTotal;
             $send['id_transaksi'] = $id_transaksi;

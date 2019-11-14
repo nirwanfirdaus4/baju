@@ -2366,6 +2366,28 @@ ol {
 	}
 }
 
+.btn-fud{
+	background-color: #f51167;
+	color: #ffffff;
+}
+
+.btn-fud:hover{
+	background-color: #f51167;
+	color: #ffffff;
+}
+
+.btn-fud2{
+	background-color: #ffffff;
+	color: #f51167;
+	border-color: #f51167;
+}
+
+.btn-fud2:hover{
+	background-color: #f51167;
+	color: #ffffff;
+	border-color: none;
+}
+
 /* Medium Mobile :480px. */
 
 @media only screen and (min-width: 576px) and (max-width: 766px) {
@@ -2416,5 +2438,32 @@ ol {
 	}
 	.social-links a span {
 		display: none;
+	}
+    .btn-validasiPesan{
+     background-color: #3498db;
+     color: #ffffff;
+    }
+    .btn-valid{
+     background-color: #2ecc71;
+     color: #ffffff;
+   }
+}
+
+
+@media only screen and (max-width: 767px) {
+	.header_magic_1{
+		display: none !important;
+	}
+	.logout_magic{
+		display: none !important;
+	}
+	.header_magics2{
+		display: none !important;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.header_magics{
+		display: none !important;
 	}
 }
