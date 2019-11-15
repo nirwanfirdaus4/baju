@@ -70,7 +70,7 @@
         <td><?php echo $key['penerima'] ?><br>[ <?php echo $key['cp'] ?> ]</td>        
         <td>
         <?php
-          if ($key['status_transaksi']=="validasi_pesanan" || $key['status_transaksi']=="pembayaran") { ?>
+          if ($key['status_transaksi']=="tolak_pesanan" || $key['status_transaksi']=="validasi_pesanan" || $key['status_transaksi']=="pembayaran") { ?>
             <button disabled="disabled" type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>
           <?php }else{ ?>
             <button data-toggle="modal" data-target="#myModal<?php echo $no; ?>" type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>
@@ -81,9 +81,12 @@
           <?php
 
           if ($key['status_transaksi']=="validasi_pesanan") { ?>
-            <button type="button" data-toggle="modal" data-target="#modalValidPesan<?php echo $no; ?>" class="btn btn-validasiPesan"><i class="fa fa-clipboard"></i> Validasi pesanan</button>          
+            <button type="button" data-toggle="modal" data-target="#modalValidPesan<?php echo $no; ?>" class="btn btn-validasiPesan"><i class="fa fa-clipboard"></i> Terima pesanan</button><br>
+            <button style="margin-top: 8%;" type="button" data-toggle="modal" data-target="#modalTolak<?php echo $no; ?>" class="btn btn-validasiPesan1"><i class="fa fa-clipboard"></i> Tolak Pesanan</button>          
           <?php }elseif ($key['status_transaksi']=="pembayaran") { ?>
               <button type="button" disabled="disabled" class="btn btn-primary"><i class="fa fa-credit-card"></i> Pembayaran</button>          
+          <?php }elseif ($key['status_transaksi']=="tolak_pesanan") { ?>
+              <button type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Ditolak</button>          
           <?php }elseif ($key['status_transaksi']=="validasi_pembayaran"){ ?>
             <button type="button" data-toggle="modal" data-target="#modalValidPembayaran<?php echo $no; ?>" class="btn btn-primary"><i class="fa fa-clipboard"></i> Validasi pembayaran</button>                   
           <?php }elseif ($key['status_transaksi']=="invalid"){ ?>
@@ -96,12 +99,68 @@
         </td>
 </tr>
 
-<div class="modal fade" id="modalValidPesan<?php echo $no; ?>" role="dialog">
+<!-- ==TRANSAKSI== -->
+
+<div class="modal fade" id="modalValidTanya<?php echo $no; ?>" role="dialog">
     <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Validasi Pesanan</h4>
+        </div>
+        <div class="modal-body" style="padding-top: 7%;">
+          <?php 
+          $hargaTotal=0;
+          for ($i=1; $i <=10 ; $i++) { 
+            $cart= $key['id_cart'.$i];
+            if ($cart!="0") {
+
+          $query_cekCart=$this->db->query("SELECT * FROM tb_cart where id_cart=$cart");
+
+              foreach ($query_cekCart->result() as $keyCart) {
+
+              $bahan_warna = $keyCart->id_warna;
+              $bahan_ukuran = $keyCart->id_ukuran;
+              $query_warna=$this->db->query("SELECT * FROM tb_warna where id_warna=$bahan_warna");
+              $query_ukuran=$this->db->query("SELECT * FROM tb_ukuran where id_ukuran=$bahan_ukuran");
+              foreach ($query_warna->result() as $keyWarna) {
+                $is_warna = $keyWarna->nama_warna;
+              }
+              foreach ($query_ukuran->result() as $keyUkuran) {
+                $is_ukuran = $keyUkuran->nama_ukuran;
+              }
+          $query_cekCart=$this->db->query("SELECT * FROM tb_cart where id_cart=$cart");
+
+          $query_cekProduk=$this->db->query("SELECT * FROM tb_produk where id_produk=$keyCart->id_produk");
+
+          foreach ($query_cekProduk->result() as $keyProduk) {
+                        echo "<p style='font-size:110%;'>"."<b>".$keyProduk->nama_produk."</b> - Ukuran <b>".$is_ukuran."</b> - Warna <b>".$is_warna."</b>"." (".$keyCart->jumlah_barang.")<br></p>";
+                        $hargaTotal=$hargaTotal+$keyCart->harga;
+                   }
+
+              }
+
+            }
+          }
+              echo "<br><p style='font-size:110%;'>Harga :<br><b>Rp. ".$hargaTotal."</b></p>";
+          ?>
+        </div>
+        <div class="modal-footer">
+            <button data-toggle="modal" data-target="#modalValidPesan<?php echo $no; ?>" style="margin-left: 2%;" class="btn btn-primary" type="button">Validasi</button>
+            <button data-toggle="modal" data-dismiss="modal"  data-target="#modalTolak<?php echo $no; ?>" style="margin-left: 2%;" class="btn btn-danger" type="button">Tidak Valid</button>                
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="modal fade" id="modalValidPesan<?php echo $no; ?>" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Ekspedisi</h4>
         </div>
         <div class="modal-body">
 
@@ -141,6 +200,38 @@
     </div>
   </div>
 
+
+<div class="modal fade" id="modalTolak<?php echo $no; ?>" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tolak Pesanan</h4>
+        </div>
+        <div class="modal-body">
+
+          <form action="<?php echo base_url('admin/Produk/tolak_pesanan/'.$key['id_transaksi']) ?>" id="form_traditional_validation" name="form_traditional_validation" role="form" autocomplete="off" method="post" class="validate" enctype="multipart/form-data">
+
+          <div class="form-group">
+          <label class="form-label">Alasan</label>
+          <div class="input-with-icon right">
+          <i class=""></i>
+          <textarea name="alasan_tolak" class="form-control"></textarea>
+          </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <div class="pull-right">
+          <button class="btn btn-success btn-cons" type="submit"><i class="icon-ok"></i> Konfirmasi</button>
+          <button class="btn btn-white btn-cons" type="button" data-dismiss="modal">Batal</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <div class="modal fade" id="modalValidPembayaran<?php echo $no; ?>" role="dialog">
     <div class="modal-dialog modal-md">
       <div class="modal-content">
@@ -159,7 +250,7 @@
             <center>
             <a href="<?php echo base_url('admin/Produk/validasi_pembayaran/'.$key['id_transaksi']."/valid"); ?>"><button style="margin-left: 2%;" class="btn btn-primary" type="button">Validasi</button></a>
             <a href="<?php echo base_url('admin/Produk/validasi_pembayaran/'.$key['id_transaksi']."/invalid"); ?>"><button style="margin-left: 2%;" class="btn btn-danger" type="button">Tidak Valid</button></a>            
-
+ 
           <button style="margin-left: 2%;" class="btn btn-warning" type="button" data-dismiss="modal">Batal</button>
           </center>
           </form>

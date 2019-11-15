@@ -196,7 +196,7 @@ class Home extends CI_Controller {
 		            $send['harga'] = $harga;
 		            $send2['id_stok'] = $id_stok;
 		            $send2['jumlah_stok'] = $cek_kuota;
-		            $this->mdl_user_produk->update_stok($send2);
+		            // $this->mdl_user_produk->update_stok($send2);
 		            $this->mdl_user_produk->tambah_cart($send);
 		            // echo  $send2['jumlah_stok'];
 		            redirect('Home/keranjang/'.$this->session->userdata('id_user'));
@@ -218,6 +218,7 @@ class Home extends CI_Controller {
         $penerima = $this->input->post('penerima');
         $tujuan = $this->input->post('tujuan');
         $cp = $this->input->post('cp');
+        $catatan = $this->input->post('catatan');
         $total_bayar = $this->input->post('total_bayars');
         $id_user=$this->session->userdata('id_user');
 
@@ -228,7 +229,9 @@ class Home extends CI_Controller {
         } else {
 
             $send['id_transaksi'] = '';
+            $send['tanggal'] = date("Y-m-d");
             $send['id_user'] = $id_user;
+            $send['catatan'] = $catatan;
             $send['ekspedisi'] = "";
             $send['biaya_ekspedisi'] = 0;
             $send['harga_produk'] = $total_bayar;
@@ -310,22 +313,18 @@ class Home extends CI_Controller {
                 }
 
          $query_p7 = $this->db->query("SELECT * FROM tb_stok where id_produk=$produk AND id_warna=$warna AND id_ukuran=$ukuran");
-         // $query_p8 ="SELECT * FROM tb_stok where id_produk=$produk AND id_warna=$warna AND id_ukuran=$ukuran";
 
                 foreach ($query_p7->result() as $keyf7) {
                     $b_stok=$keyf7->jumlah_stok;
                 }
-                // echo $query_p8."<br><br>";
 
                 $update_stok=$jumlah+$b_stok;
-                // echo $update_stok;
-
                 $send['jumlah_stok'] = $update_stok;
                 $send['id_produk'] = $produk;
                 $send['id_warna'] = $warna;
                 $send['id_ukuran'] = $ukuran;
 
-        $this->mdl_user_produk->update_stok2($send);
+        // $this->mdl_user_produk->update_stok2($send);
         $this->mdl_user_produk->delete_data($where, 'tb_cart');
         $iduser=$this->session->userdata('id_user');
         redirect('Home/keranjang/'.$iduser);

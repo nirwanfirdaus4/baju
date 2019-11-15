@@ -39,7 +39,7 @@
 						<textarea placeholder="Message"></textarea> -->
 						<center><button style="margin-top: 7%;" class="site-btn">MASUK</button></center>
 					</form>
-					<p style="margin-top: 5%;">Belum punya akun? Registrasi</p>
+					<p style="margin-top: 5%;">Belum punya akun? <a href="" data-toggle="modal" data-target="#registrasi">Registrasi</a></p>
 				</div>
 				<div class="col-lg-3">
 					
@@ -51,5 +51,33 @@
 <div style="margin-top: 10%;">
 	
 </div>
+
+<div class="modal fade" id="registrasi" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Registrasi</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+
+		<form class="contact-form" action="<?php echo base_url('Home/registrasi/') ?>" method="post" enctype="multipart/form-data">
+ 		  <input style="margin-top: 7%;" name="nama" type="text" placeholder="Nama">
+ 		  <input name="alamat" type="text" placeholder="Alamat">
+ 		  <input name="telp" type="text" placeholder="telp">
+ 		  <input name="email" type="text" placeholder="email">
+ 		  <input name="username" type="text" placeholder="username">
+ 		  <input name="password" type="text" placeholder="password">
+
+ 		  <center><button style="margin-top: 7%;" class="site-btn">Daftar</button></center>
+          </form>
+          </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 
 <?php $this->load->view('front/footer') ?>

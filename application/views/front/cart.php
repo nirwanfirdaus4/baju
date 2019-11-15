@@ -148,7 +148,7 @@
 				<input id="penerima_x" name="penerima" type="text" placeholder="Nama Penerima">
 				<input id="tujuan_x" name="tujuan" type="text" placeholder="Alamat Pengiriman">
 				<input id="cp_x" name="cp" type="text" placeholder="CP Penerima">
-				<textarea placeholder="Catatan"></textarea>
+				<textarea name="catatan" placeholder="Catatan"></textarea>
 				<center><button style="margin-top: 7%;" class="site-btn">PESAN</button></center>
 			</form>
 

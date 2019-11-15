@@ -23,7 +23,8 @@
 							<table>
 							<thead>
 								<tr>
-									<th class="total-th">Ekspedisi</th>
+									<th class="total-th">No</th>
+									<th class="total-th">Tanggal</th>
 									<th class="total-th">Total Biaya</th>
 									<th class="total-th">Tujuan</th>
 									<th class="total-th">Penerima</th>
@@ -37,14 +38,15 @@
 								    foreach ($array as $key) {					
 								?>
 								<tr>
-									<td class="total-col"><?php echo $key['ekspedisi']; ?></td>
+									<td><?php echo $no; ?></td>
+									<td class="total-col"><?php echo $key['tanggal']; ?></td>
 									<td class="total-col"><?php echo $key['total_biaya']; ?></td>
 									<td class="total-col"><h4><?php echo $key['tujuan_pengiriman']; ?></h4></td>
-									<td class="total-col"><h4><?php echo $key['penerima']; ?></h4></td>
+									<td class="total-col"><h4><?php echo $key['penerima']."<br>[ ".$key['cp']." ]"; ?></h4></td>
 									<td class="total-col">
 									<h4>
 									<?php
-										if ($key['bukti_transfer']=="") { ?>
+										if ($key['bukti_transfer']=="" || $key['status_transaksi']=="tolak_pesanan") { ?>
 											<button disabled="disabled" data-toggle="modal" data-target="#bukti<?php echo $no; ?>" type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>
 										<?php }else{ ?>
 											<button data-toggle="modal" data-target="#bukti<?php echo $no; ?>" type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>
@@ -62,6 +64,8 @@
 											<button data-toggle="modal" data-target="#val_bayar" type="button" class="btn btn-primary"><i class="fa fa-clipboard"></i> Validasi Pembayaran</button>
 										<?php }elseif ($key['status_transaksi']=="valid") {?>
 							 	             <button type="button" class="btn btn-valid"><i class="fa fa-check-square"></i> Valid</button>
+										<?php }elseif ($key['status_transaksi']=="tolak_pesanan") {?>
+											 <button data-toggle="modal" data-target="#pesanTolak<?php echo $no; ?>" type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Pesanan Ditolak</button>
 										<?php }else{ ?>
 											 <button type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Tidak Valid</button>
 										<?php }
@@ -70,6 +74,23 @@
 									</td>
 								</tr>
 
+<div class="modal fade" id="pesanTolak<?php echo $no; ?>" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Pesanan Ditolak</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+        	<p>Mohon Maaf, pesanan anda kami tolak dengan alasan :</p><br>
+        	<p ><?php echo $key['alasan_tolak'] ?></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <div class="modal fade" id="bukti<?php echo $no; ?>" role="dialog">
     <div class="modal-dialog modal-md">
       <div class="modal-content">

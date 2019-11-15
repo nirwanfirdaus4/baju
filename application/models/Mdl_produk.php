@@ -15,6 +15,12 @@ class Mdl_produk extends CI_Model
 		$query = $this->db->query("SELECT * FROM tb_ukuran");
 		return $query->result_array();
 	}
+
+	public function ambildata_warna()
+	{
+		$query = $this->db->query("SELECT * FROM tb_warna");
+		return $query->result_array();
+	}
 	
 	public function ambildata_produk()
 	{
@@ -31,6 +37,12 @@ class Mdl_produk extends CI_Model
 	public function ambildata_stok2($id_stok)
 	{
 		$query = $this->db->query("SELECT * FROM tb_stok where id_stok=$id_stok");
+		return $query->result_array();
+	}
+
+	public function ambildataWarna2($id_warna)
+	{
+		$query = $this->db->query("SELECT * FROM tb_warna where id_warna=$id_warna");
 		return $query->result_array();
 	}
 
@@ -64,6 +76,12 @@ class Mdl_produk extends CI_Model
 		return $this->db->affected_rows();
 	}
 
+	public function tambahdataWarna($paket)
+	{
+		$this->db->insert('tb_warna', $paket);
+		return $this->db->affected_rows();
+	}
+
 	public function tambahdataStok($paket)
 	{
 		$this->db->insert('tb_stok', $paket);
@@ -82,6 +100,12 @@ class Mdl_produk extends CI_Model
 		$query = $this->db->query($sql, array($send['nama_ukuran'],$send['harga'], $send['id_ukuran']));
 	}
 
+	public function updateWarna($send)
+	{
+		$sql = "UPDATE tb_warna SET nama_warna = ?,kode_warna = ? WHERE id_warna = ?";
+		$query = $this->db->query($sql, array($send['nama_warna'],$send['kode_warna'], $send['id_warna']));
+	}
+
 	public function validasi_pesanan($send)
 	{
 		$sql = "UPDATE tb_transaksi SET status_transaksi = ?, ekspedisi = ?, biaya_ekspedisi = ?,total_biaya = ? WHERE id_transaksi = ?";
@@ -98,6 +122,12 @@ class Mdl_produk extends CI_Model
 	{
 			$sql = "UPDATE tb_produk SET nama_produk = ? WHERE id_produk = ?";
 			$query = $this->db->query($sql, array($send['nama_produk'], $send['id_produk']));			
+	}
+
+	public function update_tolak_transaksi($send)
+	{
+			$sql = "UPDATE tb_transaksi SET alasan_tolak = ?, status_transaksi = ? WHERE id_transaksi = ?";
+			$query = $this->db->query($sql, array($send['alasan'],$send['status_transaksi'], $send['id_transaksi']));			
 	}
 
 	public function update_stok($status,$send)

@@ -83,11 +83,28 @@
 							<div class="up-item">
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
-									<span>0</span>
+									<span>
+										<?php
+										$v_user =$this->session->userdata('id_user');
+										if (empty($v_user)) {
+										$v_user=0;						
+										}						
+								         $query_p6 = $this->db->query("SELECT * FROM tb_cart where id_user=$v_user AND status='aktif'");
+								         		$hits=0;
+								                foreach ($query_p6->result() as $keyf6) {
+								                	$hits++;
+								                }
+								                echo $hits;
+										?>
+
+									</span>
 								</div>
 								<a href="<?php 
-								$v_user =$this->session->userdata('id_user');
-								echo base_url('Home/keranjang/'.$v_user); 
+									if($v_user==0){
+										echo base_url('Home/login'); 							
+									}else{
+										echo base_url('Home/keranjang/'.$v_user); 							
+									}
 
 								?>">Keranjang</a>
 							</div>
@@ -113,7 +130,7 @@
 								?>
 						<a href=""><?php echo $ses_nama_user; ?></a>
 						<ul class="sub-menu">
-							<li><a href="<?php echo base_url('Home/profil/'.$ses_user); ?>">Profil</a></li>
+							<li><a href="<?php echo base_url('Home/profil/'.$ses_user); ?>">Profil Saya</a></li>
 							<li><a href="<?php echo base_url('Home/keranjang/'.$ses_user); ?>">Keranjang Saya</a></li>
 							<li><a href="<?php echo base_url('Home/transaksi/'.$ses_user); ?>">Transaksi Saya</a></li>
 							<li><a href="<?php echo base_url('Home/logout_x/'); ?>">Keluar</a></li>
@@ -133,7 +150,7 @@
 								?>
 						<a href="">Akun</a>
 						<ul class="sub-menu">
-							<li><a href="<?php echo base_url('Home/profil/'.$ses_user); ?>">Profil Saya</a></li>
+							<li><a href="<?php echo base_url('Home/profil/'.$ses_user); ?>">Profil</a></li>
 							<li><a href="<?php echo base_url('Home/transaksi/'.$ses_user); ?>">Transaksi Saya</a></li>
 							<li><a href="<?php echo base_url('Home/logout_x/'); ?>">Keluar</a></li>
 						</ul>
