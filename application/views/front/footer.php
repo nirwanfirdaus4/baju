@@ -118,6 +118,8 @@
 	<script src="<?php echo base_url('assets_front/js/jquery.zoom.min.js') ?>" type="text/javascript"></script>
 	<script src="<?php echo base_url('assets_front/js/jquery-ui.min.js') ?>" type="text/javascript"></script>
 	<script src="<?php echo base_url('assets_front/js/main.js') ?>" type="text/javascript"></script>
-
+<script type="text/javascript">
+      $('#notifikasi').delay(3500).slideUp('fast');
+    </script>
 	</body>
 </html>

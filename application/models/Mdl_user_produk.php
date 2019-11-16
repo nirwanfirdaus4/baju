@@ -65,6 +65,13 @@ class Mdl_user_produk extends CI_Model
 		return $query->result_array();
 	}
 
+	public function ambildata_profil()
+	{
+        $id=$this->session->userdata('id_user');
+		$query = $this->db->query("SELECT * FROM tb_user where id_user=$id");
+		return $query->result_array();
+	}
+
 	public function ambildata2($id)
 	{
 		$query = $this->db->query("SELECT * FROM tb_ukuran WHERE id_ukuran=$id");
@@ -131,6 +138,12 @@ class Mdl_user_produk extends CI_Model
 		$query = $this->db->query($sql, array($send['nama_ukuran'],$send['harga'], $send['id_ukuran']));
 	}
 
+	public function update_profil($send)
+	{
+		$sql = "UPDATE tb_user SET nama_user = ?, gmail = ?, alamat = ? ,telp = ? ,username = ?,password = ? WHERE id_user = ?";
+		$query = $this->db->query($sql, array($send['nama'], $send['email'], $send['alamat'], $send['telp'], $send['username'], $send['password'], $send['id_user']));
+	}
+
 	public function update_transaksi($status,$send)
 	{
 		if ($status=="bayar") {
@@ -178,5 +191,10 @@ class Mdl_user_produk extends CI_Model
 			$sql = "UPDATE tb_produk SET nama_produk = ?,ukuran = ?,warna = ? WHERE id_produk = ?";
 			$query = $this->db->query($sql, array($send['nama_produk'],$send['ukuran'], $send['warna'], $send['id_produk']));			
 		}
+	}
+
+	public function registrasi($paket){
+		$this->db->insert('tb_user', $paket);
+		return $this->db->affected_rows();
 	}
 }

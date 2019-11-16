@@ -130,7 +130,7 @@
 								?>
 						<a href=""><?php echo $ses_nama_user; ?></a>
 						<ul class="sub-menu">
-							<li><a href="<?php echo base_url('Home/profil/'.$ses_user); ?>">Profil Saya</a></li>
+							<li><a href="<?php echo base_url('Home/update_profil/'.$ses_user); ?>">Profil Saya</a></li>
 							<li><a href="<?php echo base_url('Home/keranjang/'.$ses_user); ?>">Keranjang Saya</a></li>
 							<li><a href="<?php echo base_url('Home/transaksi/'.$ses_user); ?>">Transaksi Saya</a></li>
 							<li><a href="<?php echo base_url('Home/logout_x/'); ?>">Keluar</a></li>
@@ -150,7 +150,7 @@
 								?>
 						<a href="">Akun</a>
 						<ul class="sub-menu">
-							<li><a href="<?php echo base_url('Home/profil/'.$ses_user); ?>">Profil</a></li>
+							<li><a href="<?php echo base_url('Home/update_profil/'.$ses_user); ?>">Profil</a></li>
 							<li><a href="<?php echo base_url('Home/transaksi/'.$ses_user); ?>">Transaksi Saya</a></li>
 							<li><a href="<?php echo base_url('Home/logout_x/'); ?>">Keluar</a></li>
 						</ul>

@@ -16,11 +16,19 @@
 	<!-- Contact section -->
 	<section class="contact-section">
 		<div class="container">
+
 			<div class="row">
+				
 				<div class="col-lg-3">
 					
 				</div>
 				<div class="col-lg-6 contact-info">
+					<?php if ($this->session->flashdata('msg')== TRUE) : ?>
+				    <div class="alert alert-success" id="notifikasi">
+				      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				      <i class="fa fa-check"></i> <strong>Selamat!!</strong><?php echo $this->session->flashdata('msg'); ?>  
+				    </div>
+				 <?php endif; ?>  
 					<center><h3>LOGIN</h3></center>
 <!-- 					<p>Main Str, no 23, New York</p> 
 					<p>+546 990221 123</p>
@@ -61,13 +69,13 @@
         </div>
         <div class="modal-body">
 
-		<form class="contact-form" action="<?php echo base_url('Home/registrasi/') ?>" method="post" enctype="multipart/form-data">
- 		  <input style="margin-top: 7%;" name="nama" type="text" placeholder="Nama">
- 		  <input name="alamat" type="text" placeholder="Alamat">
- 		  <input name="telp" type="text" placeholder="telp">
- 		  <input name="email" type="text" placeholder="email">
- 		  <input name="username" type="text" placeholder="username">
- 		  <input name="password" type="text" placeholder="password">
+		<form class="contact-form" action="<?php echo base_url('Home/register/') ?>" method="post" enctype="multipart/form-data">
+ 		  <input style="margin-top: 7%;" name="nama" type="text" placeholder="Nama" required autocomplete="off">
+ 		  <input name="alamat" type="text" placeholder="Alamat" required autocomplete="off">
+ 		  <input name="telp" type="text" placeholder="Telpon" required autocomplete="off">
+ 		  <input name="email" type="email" placeholder="Email" required autocomplete="off">
+ 		  <input name="username" type="text" placeholder="Username" required autocomplete="off">
+ 		  <input name="password" type="password" placeholder="Password" required autocomplete="off">
 
  		  <center><button style="margin-top: 7%;" class="site-btn">Daftar</button></center>
           </form>
@@ -79,5 +87,5 @@
     </div>
   </div>
 
-
+ 
 <?php $this->load->view('front/footer') ?>

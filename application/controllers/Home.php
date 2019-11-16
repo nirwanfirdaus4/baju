@@ -9,6 +9,7 @@ class Home extends CI_Controller {
         $this->load->helper('url', 'form');
         $this->load->model('mdl_user_produk');
         $this->load->library('form_validation');
+        $this->load->library('session');
         $this->load->database();
         // if ($this->session->userdata('masuk') == FALSE) {
         //     redirect('Admin/Login', 'refresh');
@@ -144,6 +145,43 @@ class Home extends CI_Controller {
         $paket['array'] = $this->mdl_user_produk->ambildata_transaksi();
 		$this->load->view('front/transaksi',$paket);			
 	}
+
+    public function profil()
+    {
+        $paket['array'] = $this->mdl_user_produk->ambildata_profil();
+        $this->load->view('front/profil',$paket);            
+    } 
+
+    public function update_profil($id_update)
+    {
+        $this->form_validation->set_rules('nama', 'Nama');
+        $this->form_validation->set_rules('alamat', 'Harga Ukuran');
+        $this->form_validation->set_rules('telp', 'Harga Ukuran');
+        $this->form_validation->set_rules('email', 'Harga Ukuran');
+        $this->form_validation->set_rules('username', 'Harga Ukuran');
+        $this->form_validation->set_rules('password', 'Harga Ukuran');
+
+
+        if ($this->form_validation->run() == FALSE) {
+            $indexrow['data'] = $this->mdl_user_produk->ambildata_profil($id_update);
+            $indexrow['id_update'] = $id_update;
+            $this->load->view('front/profil', $indexrow);            
+        } else {
+            $send['id_user'] = '$id_update';
+            $send['nama_user'] = $this->input->post('nama');
+            $send['gmail'] = $this->input->post('email');
+            $send['alamat'] = $this->input->post('alamat');
+            $send['telp'] = $this->input->post('telp');
+            $send['username'] = $this->input->post('username');
+            $send['password'] = $this->input->post('password');
+            // $send['id_akses'] = '2';
+
+            $kembalian['jumlah'] = $this->mdl_user_produk->update_profil($send);
+            $this->session->set_flashdata('msg_update', 'Data Berhasil diupdate');
+            redirect('Home/update_profil/' . $id_update);
+        }
+           
+    }
 
 	public function kontak()
 	{
@@ -328,6 +366,36 @@ class Home extends CI_Controller {
         $this->mdl_user_produk->delete_data($where, 'tb_cart');
         $iduser=$this->session->userdata('id_user');
         redirect('Home/keranjang/'.$iduser);
+    }
+
+    public function register(){
+        $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
+        $this->form_validation->set_rules('alamat', 'Harga Ukuran', 'trim|required');
+        $this->form_validation->set_rules('telp', 'Harga Ukuran', 'trim|required');
+        $this->form_validation->set_rules('email', 'Harga Ukuran', 'trim|required');
+        $this->form_validation->set_rules('username', 'Harga Ukuran', 'trim|required');
+        $this->form_validation->set_rules('password', 'Harga Ukuran', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['msg_error'] = "Silahkan isi semua kolom";
+            $this->session->set_flashdata('msg_gagal','Login gagal, cek kembali data anda!');
+            $this->load->view('front/login', $data);
+        } else {
+            $send['id_user'] = '';
+            $send['nama_user'] = $this->input->post('nama');
+            $send['gmail'] = $this->input->post('email');
+            $send['alamat'] = $this->input->post('alamat');
+            $send['telp'] = $this->input->post('telp');
+            $send['username'] = $this->input->post('username');
+            $send['password'] = $this->input->post('password');
+            $send['id_akses'] = '2';
+
+            $this->mdl_user_produk->registrasi($send);
+            
+            $this->session->set_flashdata('msg', ' Registrasi berhasil, silahkan login');
+            redirect('Home/login/');
+        }
+
     }
 
     public function upload_pembayaran($id_transaksi)
