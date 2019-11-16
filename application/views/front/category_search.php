@@ -9,6 +9,10 @@
 						<p>Ukuran <?php echo "<b>".$sub_nama_ukuran."</b>";?></p>
 					<?php }elseif ($sub_ukuran=="") { ?>
 						<p>Warna <?php echo "<b>".$sub_nama_warna."</b>";?></p>
+					<?php }elseif ($sub_ukuran=="zonk" && $sub_search_nama=="zonk") { ?>
+						<p>" <?php echo  $bahan_nama; ?> "</p>
+					<?php }elseif ($sub_ukuran=="ono" && $sub_search_nama!="zonk") { ?>
+						<p>" <?php echo  $bahan_nama; ?> "</p>
 					<?php }else{ ?>
 						<p>Warna <?php echo "<b>".$sub_nama_warna."</b><br>Ukuran <b>".$sub_nama_ukuran."</b>"; ?></p>
 					<?php }
@@ -102,6 +106,8 @@
 
 							if ($status_data=="kosong") { ?>
 								<center><p align="right" style="font-size: 120%;"> " Produk Yang Anda Cari Sedang Kosong "</p></center>
+							<?php }elseif ($status_data=="ganok") { ?>
+								<center><p align="right" style="font-size: 120%;"> " Produk Yang Anda Cari Tidak Ditemukan "</p></center>
 							<?php }
 						    foreach ($array as $key) {	
 

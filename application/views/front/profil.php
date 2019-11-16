@@ -18,7 +18,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 contact-info">
-					<form class="contact-form" action="<?php echo base_url('Home/update_profil/'.$data[0]['id_user']) ?>" method="post">
+					<form class="contact-form" action="<?php echo base_url('Home/update_profil/'.$data[0]['id_user']) ?>" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="id_user" value="<?php echo $data[0]['id_user']; ?>">
 						<label>Nama: </label>
 						<input type="text" name="nama" value="<?php echo $data[0]['nama_user']; ?>">

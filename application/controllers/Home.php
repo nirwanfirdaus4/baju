@@ -63,11 +63,77 @@ class Home extends CI_Controller {
         redirect($link);
 		// $this->load->view('front/detail',$paket);			
 	}
+
+    public function show_search()
+    {
+        $bahan_nama = $this->input->post('bahan_nama');    
+        // $nama = "Aisyah";
+        $query_for = $this->db->query("SELECT * FROM tb_produk where nama_produk LIKE '%$bahan_nama%' LIMIT 1");
+        // $query_for = "SELECT * FROM tb_produk where nama_produk='%$bahan_nama%' LIMIT 1";
+        // echo $query_for; 
+
+        if ($query_for->num_rows()>0) {
+            foreach ($query_for->result() as $keyFor) {         
+                $id_produk = $keyFor->id_produk;
+                $nama_produk = $keyFor->nama_produk;
+                // $id_produk = $keyFor->id_produk;
+                // $query_for2 = $this->db->query("SELECT * FROM tb_stok where id_produk=$id_produk LIMIT 1");
+
+                // foreach ($query_for2->result() as $keyFor2) {         
+                //     $id_warna = $keyFor2->id_warna;
+                //     $id_ukuran = $keyFor2->id_ukuran;
+                    // $id_produk = $keyFor->id_produk;
+                
+                    $link = 'Home/cari_produk2/'.$bahan_nama."/".$id_produk."/".$nama_produk;
+                    redirect($link);
+                    // echo $link;
+
+                // }
+
+            }
+        }else{
+            $id_produk=0;
+            $nama_produk="kosong";
+                    $link = 'Home/cari_produk2/'.$bahan_nama."/".$id_produk."/".$nama_produk;
+                    redirect($link);
+                    // echo $link;
+        }
+
+        // $this->load->view('front/detail',$paket);            
+    }
+
 	public function produk()
 	{			
         $paket['array'] = $this->mdl_user_produk->ambildata_produk_all();
         $this->load->view('front/category',$paket);             
 	}
+
+    public function cari_produk2($bahan_nama,$produk,$nama_produk)
+    {           
+        // $paket['sub_warna'] = $warna = $this->input->post('v_warna');        
+        // $paket['sub_ukuran'] = $ukuran = $this->input->post('v_ukuran');        
+        $paket['sub_total'] = 0;               
+        $paket['bahan_nama'] = $bahan_nama;                 
+            $view_status = $this->db->query("SELECT * FROM tb_stok where id_produk=$produk ORDER BY id_stok DESC");
+            if ($view_status->num_rows()<1) {
+                $paket['status_data']="ganok";  
+                $paket['sub_warna'] = "zonk";        
+                $paket['sub_ukuran'] = "zonk";   
+               $paket['sub_search_nama'] = "zonk";         
+               $paket['sub_nama_warna'] = "kosong";         
+               $paket['sub_nama_ukuran'] = "kosong";         
+            }else{
+                $paket['status_data']="ada";  
+                $paket['sub_warna'] = "ono";        
+                $paket['sub_ukuran'] = "ono";                   
+                $paket['sub_search_nama'] = $nama_produk; 
+                $paket['sub_nama_warna'] = "IJOOOO";         
+                $paket['sub_nama_ukuran'] = "Gedeeeee";         
+            }
+            $paket['array'] = $this->mdl_user_produk->ambildata_search_produk4($produk);
+            $this->load->view('front/category_search',$paket);       
+    }
+
 
     public function cari_produk()
     {           
@@ -154,20 +220,22 @@ class Home extends CI_Controller {
 
     public function update_profil($id_update)
     {
-        $this->form_validation->set_rules('nama', 'Nama');
-        $this->form_validation->set_rules('alamat', 'Harga Ukuran');
-        $this->form_validation->set_rules('telp', 'Harga Ukuran');
-        $this->form_validation->set_rules('email', 'Harga Ukuran');
-        $this->form_validation->set_rules('username', 'Harga Ukuran');
-        $this->form_validation->set_rules('password', 'Harga Ukuran');
+        $this->form_validation->set_rules('nama', 'Nama','trim|required');
+        $this->form_validation->set_rules('alamat', 'Harga Ukuran','trim|required');
+        $this->form_validation->set_rules('telp', 'Harga Ukuran','trim|required');
+        $this->form_validation->set_rules('email', 'Harga Ukuran','trim|required');
+        $this->form_validation->set_rules('username', 'Harga Ukuran','trim|required');
+        $this->form_validation->set_rules('password', 'Harga Ukuran','trim|required');
+        // $this->form_validation->set_rules('sc', 'sc', 'trim|required');
 
 
         if ($this->form_validation->run() == FALSE) {
             $indexrow['data'] = $this->mdl_user_produk->ambildata_profil($id_update);
             $indexrow['id_update'] = $id_update;
             $this->load->view('front/profil', $indexrow);            
+
         } else {
-            $send['id_user'] = '$id_update';
+            $send['id_user'] = $id_update;
             $send['nama_user'] = $this->input->post('nama');
             $send['gmail'] = $this->input->post('email');
             $send['alamat'] = $this->input->post('alamat');
@@ -175,7 +243,8 @@ class Home extends CI_Controller {
             $send['username'] = $this->input->post('username');
             $send['password'] = $this->input->post('password');
             // $send['id_akses'] = '2';
-
+ 
+            $this->session->set_userdata('ses_nama', $send['nama_user']);
             $kembalian['jumlah'] = $this->mdl_user_produk->update_profil($send);
             $this->session->set_flashdata('msg_update', 'Data Berhasil diupdate');
             redirect('Home/update_profil/' . $id_update);
@@ -322,7 +391,7 @@ class Home extends CI_Controller {
 
             redirect('Home');
         }else {
-            $this->session->set_flashdata('msg', 'Username / Passowrd Salah');
+            $this->session->set_flashdata('msg_login', 'Username / Passowrd Salah');
             redirect('Home/login/');
         }
     }

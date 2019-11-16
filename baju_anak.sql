@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2019 at 03:06 AM
+-- Generation Time: Nov 16, 2019 at 01:42 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -76,7 +76,8 @@ INSERT INTO `tb_cart` (`id_cart`, `id_user`, `id_produk`, `id_ukuran`, `id_warna
 (18, 2, 7, 13, 2, '1', '260000', 'aktif'),
 (22, 2, 7, 9, 4, '3', '720000', 'aktif'),
 (23, 3, 8, 14, 6, '1', '290000', 'pasif'),
-(25, 3, 7, 13, 2, '1', '260000', 'pasif');
+(25, 3, 7, 13, 2, '1', '260000', 'pasif'),
+(28, 3, 8, 14, 6, '2', '580000', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -132,7 +133,7 @@ INSERT INTO `tb_stok` (`id_stok`, `id_produk`, `id_ukuran`, `id_warna`, `foto`, 
 (7, 7, 13, 2, 'Produk__1573518038.jpg', 10),
 (8, 7, 9, 4, 'Produk__1573709761.jpg', 7),
 (9, 7, 15, 4, 'Produk__1573709823.png', 4),
-(10, 8, 7, 1, 'Produk__1573722006.jpg', 7),
+(10, 8, 1, 1, 'Produk__1573722006.jpg', 7),
 (11, 8, 14, 6, 'Produk__1573722021.png', 8);
 
 -- --------------------------------------------------------
@@ -229,8 +230,10 @@ CREATE TABLE `tb_user` (
 
 INSERT INTO `tb_user` (`id_user`, `nama_user`, `gmail`, `alamat`, `telp`, `username`, `password`, `id_akses`) VALUES
 (1, 'Moch Nirwan Firdaus', 'nirwanfirdaus4@gmail.com', 'Jl. Bandulan 1f no: 50B', '08814954125', 'nirwan', 'nirwan', 1),
-(2, 'Vega Bilamonos sdsdssd', 'rogo@gmail.com', 'Perum bukit Tidar', '0884232312', 'vega', 'vega', 2),
-(3, 'Moch Nirwan Firdaus', 'nirwanfirdaus4@gmail.com', 'Jl. Bandulan 1F no 50b', '08814954125', 'nirwan', 'firdaus', 2);
+(2, 'Vega Zoom', 'Zoom@gmail.com', 'Perum bukit Tidar', '08842323121', 'vega1', 'vega1', 2),
+(3, 'Moch Nirwan Firdaus', 'nirwanfirdaus4@gmail.com', 'Jl. Bandulan 1F no 50s', '08814954125', 'nirwan', 'firdaus', 2),
+(4, 'Fajar', 'fajar@gmail.com', 'Amreika', '08894343434', 'fajar', 'fajar', 2),
+(5, 'Nunung', 'nun@gmail.com', 'Tuban', '0882324234', 'nunung', 'iswati', 2);
 
 -- --------------------------------------------------------
 
@@ -322,7 +325,7 @@ ALTER TABLE `tb_akses`
 -- AUTO_INCREMENT for table `tb_cart`
 --
 ALTER TABLE `tb_cart`
-  MODIFY `id_cart` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_cart` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tb_produk`
@@ -352,7 +355,7 @@ ALTER TABLE `tb_ukuran`
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_warna`

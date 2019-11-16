@@ -58,6 +58,12 @@ class Mdl_user_produk extends CI_Model
 		return $query->result_array();
 	}
 
+	public function ambildata_search_produk4($produk)
+	{
+		$query = $this->db->query("SELECT * FROM tb_stok where id_produk=$produk ORDER BY id_stok DESC");
+		return $query->result_array();
+	}
+
 	public function ambildata_transaksi()
 	{
         $id=$this->session->userdata('id_user');
@@ -141,7 +147,7 @@ class Mdl_user_produk extends CI_Model
 	public function update_profil($send)
 	{
 		$sql = "UPDATE tb_user SET nama_user = ?, gmail = ?, alamat = ? ,telp = ? ,username = ?,password = ? WHERE id_user = ?";
-		$query = $this->db->query($sql, array($send['nama'], $send['email'], $send['alamat'], $send['telp'], $send['username'], $send['password'], $send['id_user']));
+		$query = $this->db->query($sql, array($send['nama_user'], $send['gmail'], $send['alamat'], $send['telp'], $send['username'], $send['password'], $send['id_user']));
 	}
 
 	public function update_transaksi($status,$send)

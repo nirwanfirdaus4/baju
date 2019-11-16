@@ -58,8 +58,8 @@
 						</a>
 					</div>
 					<div class="col-xl-5 col-lg-4">
-						<form class="header-search-form">
-							<input type="text" placeholder="Cari ....">
+						<form class="header-search-form" action="<?php echo base_url('Home/show_search/') ?>" method="post" enctype="multipart/form-data">
+							<input type="text" name="bahan_nama" placeholder="Cari ....">
 							<button><i class="flaticon-search"></i></button>
 						</form>
 					</div>

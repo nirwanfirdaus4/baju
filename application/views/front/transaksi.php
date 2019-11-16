@@ -25,7 +25,7 @@
 								<tr>
 									<th class="total-th">No</th>
 									<th class="total-th">Tanggal</th>
-									<th class="total-th">Total Biaya</th>
+									<th class="total-th">Pesanan</th>
 									<th class="total-th">Tujuan</th>
 									<th class="total-th">Penerima</th>
 									<th class="total-th">Bukti Transfer</th>
@@ -40,7 +40,11 @@
 								<tr>
 									<td><?php echo $no; ?></td>
 									<td class="total-col"><?php echo $key['tanggal']; ?></td>
-									<td class="total-col"><?php echo $key['total_biaya']; ?></td>
+									<td class="total-col">
+
+                      <button data-toggle="modal" data-target="#pesan<?php echo $no; ?>" type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>
+
+                  </td>
 									<td class="total-col"><h4><?php echo $key['tujuan_pengiriman']; ?></h4></td>
 									<td class="total-col"><h4><?php echo $key['penerima']."<br>[ ".$key['cp']." ]"; ?></h4></td>
 									<td class="total-col">
@@ -74,6 +78,57 @@
 									</td>
 								</tr>
 
+<div class="modal fade" id="pesan<?php echo $no; ?>" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Daftar Pesanan</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" style="padding-top: 7%;">
+          <?php 
+          $hargaTotal=0;
+          for ($i=1; $i <=10 ; $i++) { 
+            $cart= $key['id_cart'.$i];
+            if ($cart!="0") {
+
+          $query_cekCart=$this->db->query("SELECT * FROM tb_cart where id_cart=$cart");
+
+              foreach ($query_cekCart->result() as $keyCart) {
+
+              $bahan_warna = $keyCart->id_warna;
+              $bahan_ukuran = $keyCart->id_ukuran;
+              $query_warna=$this->db->query("SELECT * FROM tb_warna where id_warna=$bahan_warna");
+              $query_ukuran=$this->db->query("SELECT * FROM tb_ukuran where id_ukuran=$bahan_ukuran");
+              foreach ($query_warna->result() as $keyWarna) {
+                $is_warna = $keyWarna->nama_warna;
+              }
+              foreach ($query_ukuran->result() as $keyUkuran) {
+                $is_ukuran = $keyUkuran->nama_ukuran;
+              }
+          $query_cekCart=$this->db->query("SELECT * FROM tb_cart where id_cart=$cart");
+
+          $query_cekProduk=$this->db->query("SELECT * FROM tb_produk where id_produk=$keyCart->id_produk");
+
+          foreach ($query_cekProduk->result() as $keyProduk) {
+                        echo "<p style='font-size:110%;'>"."<b>".$keyProduk->nama_produk."</b> - Ukuran <b>".$is_ukuran."</b> - Warna <b>".$is_warna."</b>"." (".$keyCart->jumlah_barang.")<br></p>";
+                        $hargaTotal=$hargaTotal+$keyCart->harga;
+                   }
+
+              }
+
+            }
+          }
+              echo "<br><p style='font-size:110%;'>Harga:<br>Rp. ".$hargaTotal."+".$key['biaya_ekspedisi']." ( Biaya Ekspedisi )</p>";
+          ?>
+          <p style="font-size:110%;">Total : <b>Rp. <?php echo $key['total_biaya']."</b>"; ?></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <div class="modal fade" id="pesanTolak<?php echo $no; ?>" role="dialog">
     <div class="modal-dialog modal-md">
       <div class="modal-content">
