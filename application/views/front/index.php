@@ -184,7 +184,7 @@
 						<div class="pi-pic">
 							<img src="<?php echo base_url('upload/produk/'.$key['foto']) ?>" alt="">
 							<div class="pi-links">
-								<a href="<?php echo base_url('Home/detail/'.$key['id_stok']) ?>" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="<?php echo base_url('Home/detail/'.$key['id_stok']) ?>" class="add-card"><i class="flaticon-bag"></i><span>Tambahkan</span></a>
 							</div>
 						</div>
 						<div class="pi-text">

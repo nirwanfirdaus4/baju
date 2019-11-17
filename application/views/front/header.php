@@ -53,9 +53,9 @@
 				<div class="row">
 					<div class="col-lg-2 text-center text-lg-left">
 						<!-- logo -->
-						<a href="" class="site-logo">
-							<img src="<?php echo base_url('assets_front/img/logo.png') ?>" alt="">
-						</a>
+						<!-- <a href="" class="site-logo"> -->
+							<img width="70%" src="<?php echo base_url('assets_front/img/la_logo.png') ?>" alt="">
+						<!-- </a> -->
 					</div>
 					<div class="col-xl-5 col-lg-4">
 						<form class="header-search-form" action="<?php echo base_url('Home/show_search/') ?>" method="post" enctype="multipart/form-data">
