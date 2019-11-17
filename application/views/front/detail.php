@@ -219,7 +219,7 @@
                         <div class="pro-qty"><input name="qu" id="qu" type="text" value="1"></div>
                     </div>
 
-                    <button class="btn site-btn">ADD TO CART</button>                    
+                    <button class="btn site-btn">TAMBAHKAN KERANJANG</button>                    
 					</form>
 					<!-- <a href="#" class="site-btn">ADD TO CART</a> -->
 					<div id="accordion" class="accordion-area">

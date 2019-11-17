@@ -28,6 +28,12 @@
 				      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				      <i class="fa fa-check"></i> <strong>Selamat!!</strong><?php echo $this->session->flashdata('msg'); ?>  
 				    </div>
+				 <?php endif; ?> 
+				 <?php if ($this->session->flashdata('msg_login')== TRUE) : ?>
+				    <div class="alert alert-danger" id="notifikasi">
+				      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				      <i class="fa fa-times"></i> <strong>Maaf!!</strong> <?php echo $this->session->flashdata('msg_login'); ?>  
+				    </div>
 				 <?php endif; ?>  
 					<center><h3>LOGIN</h3></center>
 <!-- 					<p>Main Str, no 23, New York</p> 
