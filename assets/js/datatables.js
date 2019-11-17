@@ -178,7 +178,7 @@ $(document).ready(function() {
 		"aaSorting": [[ 1, "asc" ]],
 		"oLanguage": {
 			"sLengthMenu": "_MENU_ ",
-			"sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+			"sInfo": "Menampilkan <b>_START_ hingga _END_</b> dari _TOTAL_ data"
 		},
 		 bAutoWidth     : false,
         fnPreDrawCallback: function () {
@@ -223,18 +223,18 @@ $(document).ready(function() {
     /*
      * Insert a 'details' column to the table
      */
-    var nCloneTh = document.createElement( 'th' );
-    var nCloneTd = document.createElement( 'td' );
-    nCloneTd.innerHTML = '<i class="fa fa-plus-circle"></i>';
-    nCloneTd.className = "center";
+    // var nCloneTh = document.createElement( 'th' );
+    // var nCloneTd = document.createElement( 'td' );
+    // nCloneTd.innerHTML = '<i class="fa fa-plus-circle"></i>';
+    // nCloneTd.className = "center";
      
-    $('#example2 thead tr').each( function () {
-        this.insertBefore( nCloneTh, this.childNodes[0] );
-    } );
+    // $('#example2 thead tr').each( function () {
+    //     this.insertBefore( nCloneTh, this.childNodes[0] );
+    // } );
      
-    $('#example2 tbody tr').each( function () {
-        this.insertBefore(  nCloneTd.cloneNode( true ), this.childNodes[0] );
-    } );
+    // $('#example2 tbody tr').each( function () {
+    //     this.insertBefore(  nCloneTd.cloneNode( true ), this.childNodes[0] );
+    // } );
      
     /*
      * Initialse DataTables, with no sorting on the 'details' column
@@ -244,7 +244,7 @@ $(document).ready(function() {
        "aaSorting": [],
 				"oLanguage": {
 			"sLengthMenu": "_MENU_ ",
-			"sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+			"sInfo": "Menampilkan <b>_START_ hingga _END_</b> dari _TOTAL_ data"
 		},
     });
 	 var oTable3 = $('#example3').dataTable( {
@@ -264,7 +264,7 @@ $(document).ready(function() {
         "aaSorting": [[ 3, "desc" ]],
 				"oLanguage": {
 			"sLengthMenu": "_MENU_ ",
-			"sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+			"sInfo": "Menampilkan <b>_START_ hingga _END_</b> dari _TOTAL_ data"
 		},
     });
 	$("div.toolbar").html('<div class="table-tools-actions"><button class="btn btn-primary" style="margin-left:12px" id="test2">Add</button></div>');
@@ -284,45 +284,45 @@ $(document).ready(function() {
      * Note that the indicator for showing which row is open is not controlled by DataTables,
      * rather it is done here
      */
-     $(document).on('click','#example2 tbody td i',function() {
-        var nTr = $(this).parents('tr')[0];
-        if ( oTable.fnIsOpen(nTr) )
-        {
-            /* This row is already open - close it */
-			this.removeClass = "fa fa-plus-circle";
-            this.addClass = "fa fa-minus-circle";     
-            oTable.fnClose( nTr );
-        }
-        else
-        {
-            /* Open this row */
-            this.removeClass = "fa fa-minus-circle";
-            this.addClass = "fa fa-plus-circle";  
-            oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
-        }
-    });
+ //     $(document).on('click','#example2 tbody td i',function() {
+ //        var nTr = $(this).parents('tr')[0];
+ //        if ( oTable.fnIsOpen(nTr) )
+ //        {
+ //            /* This row is already open - close it */
+	// 		this.removeClass = "fa fa-plus-circle";
+ //            this.addClass = "fa fa-minus-circle";     
+ //            oTable.fnClose( nTr );
+ //        }
+ //        else
+ //        {
+ //            /* Open this row */
+ //            this.removeClass = "fa fa-minus-circle";
+ //            this.addClass = "fa fa-plus-circle";  
+ //            oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+ //        }
+ //    });
 	
-		$(".select2-wrapper").select2({minimumResultsForSearch: -1});
+	// 	$(".select2-wrapper").select2({minimumResultsForSearch: -1});
 
-	function fnClickAddRow() {
-    $('#example3').dataTable().fnAddData( [
-        $("#val1 option:selected").text(),
-        $("#val2 option:selected").text(),
-        "Windows",
-        "789.","A" ] );     
-	}	
+	// function fnClickAddRow() {
+ //    $('#example3').dataTable().fnAddData( [
+ //        $("#val1 option:selected").text(),
+ //        $("#val2 option:selected").text(),
+ //        "Windows",
+ //        "789.","A" ] );     
+	// }	
 });
 
 
 /* Formating function for row details */
-function fnFormatDetails ( oTable, nTr )
-{
-    var aData = oTable.fnGetData( nTr );
-    var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">';
-    sOut += '<tr><td>Rendering engine:</td><td>'+aData[1]+' '+aData[4]+'</td></tr>';
-    sOut += '<tr><td>Link to source:</td><td>Could provide a link here</td></tr>';
-    sOut += '<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>';
-    sOut += '</table>';
+// function fnFormatDetails ( oTable, nTr )
+// {
+//     var aData = oTable.fnGetData( nTr );
+//     var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">';
+//     sOut += '<tr><td>Rendering engine:</td><td>'+aData[1]+' '+aData[4]+'</td></tr>';
+//     sOut += '<tr><td>Link to source:</td><td>Could provide a link here</td></tr>';
+//     sOut += '<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>';
+//     sOut += '</table>';
      
-    return sOut;
-}
+//     return sOut;
+// }
