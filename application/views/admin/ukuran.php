@@ -43,6 +43,9 @@
 <tr>
 <th>No</th>
 <th>Jenis Ukuran</th>
+<th>Lingkar Dada</th>
+<th>Panjang Baju</th>
+<th>Panjang Lengan</th>
 <th>Harga</th>
 <th>Aksi</th>
 </tr>
@@ -53,10 +56,13 @@
     foreach ($array as $key) { ?>
         <td><?php echo $no++ ?></td>
         <td><?php echo $key['nama_ukuran'] ?></td>
+        <td><?php echo $key['lingkar_dada'] ?></td>
+        <td><?php echo $key['panjang_baju'] ?></td>
+        <td><?php echo $key['panjang_lengan'] ?></td>
         <td>Rp. <?php echo $key['harga'] ?></td>
 		<td>
 			
-			<a href="<?php echo base_url('admin/Produk/edit/'.$key['id_ukuran']) ?>"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>	
+			<a href="<?php echo base_url('admin/Produk/edit_ukuran/'.$key['id_ukuran']) ?>"><button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>	
 			<a href="<?php echo base_url('admin/Produk/hapus/'.$key['id_ukuran']) ?>"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>			
 		</td>
 </tr>

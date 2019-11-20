@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2019 at 01:42 PM
+-- Generation Time: Nov 20, 2019 at 11:26 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -187,6 +187,9 @@ INSERT INTO `tb_transaksi` (`id_transaksi`, `tanggal`, `id_user`, `id_cart1`, `i
 CREATE TABLE `tb_ukuran` (
   `id_ukuran` int(5) NOT NULL,
   `nama_ukuran` varchar(50) NOT NULL,
+  `lingkar_dada` int(7) NOT NULL,
+  `panjang_baju` int(7) NOT NULL,
+  `panjang_lengan` int(7) NOT NULL,
   `harga` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -194,18 +197,16 @@ CREATE TABLE `tb_ukuran` (
 -- Dumping data for table `tb_ukuran`
 --
 
-INSERT INTO `tb_ukuran` (`id_ukuran`, `nama_ukuran`, `harga`) VALUES
-(1, '0', '220000'),
-(7, '1', '220000'),
-(8, '2', '240000'),
-(9, '3', '240000'),
-(10, '4', '240000'),
-(11, '6', '260000'),
-(12, '7', '260000'),
-(13, '8', '260000'),
-(14, '10', '290000'),
-(15, '11', '290000'),
-(16, '12', '290000');
+INSERT INTO `tb_ukuran` (`id_ukuran`, `nama_ukuran`, `lingkar_dada`, `panjang_baju`, `panjang_lengan`, `harga`) VALUES
+(1, '0', 50, 50, 23, '520000'),
+(7, '1', 55, 60, 25, '220000'),
+(8, '2', 60, 70, 32, '240000'),
+(9, '3', 62, 76, 34, '240000'),
+(10, '4', 64, 82, 36, '240000'),
+(11, '6', 68, 88, 38, '260000'),
+(13, '8', 72, 98, 42, '260000'),
+(14, '10', 78, 108, 47, '290000'),
+(16, '12', 82, 118, 80, '290000');
 
 -- --------------------------------------------------------
 

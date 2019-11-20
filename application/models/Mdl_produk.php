@@ -64,6 +64,12 @@ class Mdl_produk extends CI_Model
 		return $query->result_array();
 	}
 
+	public function ambildata_ukuran2($id)
+	{
+		$query = $this->db->query("SELECT * FROM tb_ukuran WHERE id_ukuran=$id");
+		return $query->result_array();
+	}
+
 	public function tambahdata($paket)
 	{
 		$this->db->insert('tb_ukuran', $paket);
@@ -122,6 +128,12 @@ class Mdl_produk extends CI_Model
 	{
 			$sql = "UPDATE tb_produk SET nama_produk = ? WHERE id_produk = ?";
 			$query = $this->db->query($sql, array($send['nama_produk'], $send['id_produk']));			
+	}
+
+	public function update_ukuran($send)
+	{
+			$sql = "UPDATE tb_ukuran SET nama_ukuran = ?,harga = ? WHERE id_ukuran = ?";
+			$query = $this->db->query($sql, array($send['nama_ukuran'],$send['harga'], $send['id_ukuran']));			
 	}
 
 	public function update_tolak_transaksi($send)

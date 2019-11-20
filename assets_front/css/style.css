@@ -507,7 +507,7 @@ ol {
 
 .hero-slider .hs-item {
 	position: relative;
-	height: 720px;
+	height: 614px;
 }
 
 .hero-slider .hs-item span {
@@ -2460,10 +2460,22 @@ ol {
 	.header_magics2{
 		display: none !important;
 	}
+	.s_font{
+		font-size: 77% !important;
+	}
+	.s_font2{
+		font-size: 90% !important;
+	}
 }
 
 @media only screen and (min-width: 768px) {
 	.header_magics{
+		display: none !important;
+	}
+}
+
+@media only screen and (max-width: 991px) {
+	.log_la{
 		display: none !important;
 	}
 }

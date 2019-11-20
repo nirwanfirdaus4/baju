@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<title>Divisima | eCommerce Template</title>
+	<title>L.A Collections</title>
 	<meta charset="UTF-8">
 	<meta name="description" content=" Divisima | eCommerce Template">
 	<meta name="keywords" content="divisima, eCommerce, creative, html">
@@ -54,7 +54,7 @@
 					<div class="col-lg-2 text-center text-lg-left">
 						<!-- logo -->
 						<!-- <a href="" class="site-logo"> -->
-							<img width="70%" src="<?php echo base_url('assets_front/img/la_logo.png') ?>" alt="">
+							<img class="log_la" width="70%" src="<?php echo base_url('assets_front/img/la_logo.png') ?>" alt="">
 						<!-- </a> -->
 					</div>
 					<div class="col-xl-5 col-lg-4">
@@ -135,9 +135,9 @@
 							<li><a href="<?php echo base_url('Home/transaksi/'.$ses_user); ?>">Transaksi Saya</a></li>
 							<li><a href="<?php echo base_url('Home/logout_x/'); ?>">Keluar</a></li>
 						</ul>
-							<?php }else{
-
-							}
+							<?php }else{ ?>
+								<a href="<?php echo base_url('Home/login/'); ?>">Masuk</a>
+							<?php }
 								?>
 					
 					</li>

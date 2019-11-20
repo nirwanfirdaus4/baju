@@ -18,7 +18,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="cart-table">
-						<h3>Transaksi Anda</h3>
+						<h3 class="s_font2">Transaksi Anda</h3>
 						<div class="cart-table-warp">
 							<table>
 							<thead>
@@ -38,16 +38,16 @@
 								    foreach ($array as $key) {					
 								?>
 								<tr>
-									<td><?php echo $no; ?></td>
-									<td class="total-col"><?php echo $key['tanggal']; ?></td>
+									<td class="s_font"><?php echo $no; ?></td>
+									<td class="s_font total-col"><?php echo $key['tanggal']; ?></td>
 									<td class="total-col">
 
                       <button data-toggle="modal" data-target="#pesan<?php echo $no; ?>" type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>
 
                   </td>
-									<td class="total-col"><h4><?php echo $key['tujuan_pengiriman']; ?></h4></td>
-									<td class="total-col"><h4><?php echo $key['penerima']."<br>[ ".$key['cp']." ]"; ?></h4></td>
-									<td class="total-col">
+									<td class="total-col"><h4 class="s_font"><?php echo $key['tujuan_pengiriman']; ?></h4></td>
+									<td class="total-col"><h4 class="s_font"><?php echo $key['penerima']."<br>[ ".$key['cp']." ]"; ?></h4></td>
+									<td class="s_font total-col">
 									<h4>
 									<?php
 										if ($key['bukti_transfer']=="" || $key['status_transaksi']=="tolak_pesanan") { ?>
@@ -58,7 +58,7 @@
 									?>
 
 									</h4></td>
-									<td class="total-col">
+									<td class="s_font total-col">
 										<?php
 										if($key['status_transaksi']=="validasi_pesanan"){ ?>
 											<button data-toggle="modal" data-target="#val_pesan" type="button" class="btn btn-primary"><i class="fa fa-clipboard"></i> Validasi Pesanan</button>
@@ -69,7 +69,7 @@
 										<?php }elseif ($key['status_transaksi']=="valid") {?>
 							 	             <button type="button" class="btn btn-valid"><i class="fa fa-check-square"></i> Valid</button>
 										<?php }elseif ($key['status_transaksi']=="tolak_pesanan") {?>
-											 <button data-toggle="modal" data-target="#pesanTolak<?php echo $no; ?>" type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Pesanan Ditolak</button>
+											 <button data-toggle="modal" data-target="#pesanTolak<?php echo $no; ?>" type="button" class="s_font btn btn-danger"><i class="fa fa-ban"></i> Pesanan Ditolak</button>
 										<?php }else{ ?>
 											 <button type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Tidak Valid</button>
 										<?php }

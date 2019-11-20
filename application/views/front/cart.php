@@ -18,7 +18,7 @@
 			<div class="row">
 				<div class="col-lg-9">
 					<div class="cart-table">
-						<h3>Keranjang Anda</h3>
+						<h3 class="s_font2">Keranjang Anda</h3>
 						<div class="cart-table-warp">
 							<table>
 							<thead>
@@ -53,7 +53,7 @@
 
 										 ?>" alt="">
 										<div class="pc-title">
-											<h4><?php
+											<h4 class="s_font"><?php
 
 											$u_produk= $key['id_produk']; 
 											$query_p2 = $this->db->query("SELECT * FROM tb_produk where id_produk=$u_produk");
@@ -63,7 +63,7 @@
 											}
 
 											 ?></h4>
-											<p><?php
+											<p class="s_font"><?php
 											$t_produk= $key['id_ukuran']; 
 											$query_p3 = $this->db->query("SELECT * FROM tb_ukuran where id_ukuran=$t_produk");
 
@@ -73,7 +73,7 @@
 											 ?></p>
 										</div>
 									</td>
-									<td class="size-col"><h4><?php
+									<td class="size-col"><h4 class="s_font"><?php
 									 $warn=$key['id_warna'];
 									 
 									 $query_p6 = $this->db->query("SELECT * FROM tb_warna where id_warna=$warn");
@@ -85,9 +85,9 @@
 									 echo $warna." (".$key['id_ukuran'].")"; 
 
 									 ?></h4></td>
-									<td class="size-col"><h4><?php echo $key['jumlah_barang']; ?></h4></td>
-									<td class="total-col"><h4><?php echo "Rp. ".$key['harga']; ?></h4></td>
-									<td class="total-col"><a href="<?php echo base_url('Home/hapus_cart/'.$key['id_cart']); ?>"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a></td>
+									<td class="size-col"><h4 class="s_font"><?php echo $key['jumlah_barang']; ?></h4></td>
+									<td class="total-col"><h4 class="s_font"><?php echo "Rp. ".$key['harga']; ?></h4></td>
+									<td class="total-col"><a href="<?php echo base_url('Home/hapus_cart/'.$key['id_cart']); ?>"><button type="button" class="s_font btn btn-danger"><i class="fa fa-trash"></i></button></a></td>
 								</tr>
 
 

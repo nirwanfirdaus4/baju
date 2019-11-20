@@ -13,6 +13,10 @@ class Produk extends CI_Controller {
         // if ($this->session->userdata('masuk') == FALSE) {
         //     redirect('Admin/Login', 'refresh');
         // }
+        if ($this->session->userdata('masuk') == FALSE || $this->session->userdata('hak_akses') !=1) {
+            redirect('Home/login', 'refresh');
+        }
+
     }
 
 
@@ -50,6 +54,9 @@ class Produk extends CI_Controller {
     public function tambahdata() 
     {
         $this->form_validation->set_rules('nama_ukuran', 'Nama Ukuran', 'trim|required');
+        $this->form_validation->set_rules('lingkar_dada', 'Harga Ukuran', 'trim|required');
+        $this->form_validation->set_rules('panjang_baju', 'Harga Ukuran', 'trim|required');
+        $this->form_validation->set_rules('panjang_lengan', 'Harga Ukuran', 'trim|required');
         $this->form_validation->set_rules('harga', 'Harga Ukuran', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
@@ -58,6 +65,9 @@ class Produk extends CI_Controller {
         } else {
             $send['id_ukuran'] = '';
             $send['nama_ukuran'] = $this->input->post('nama_ukuran');
+            $send['lingkar_dada'] = $this->input->post('lingkar_dada');
+            $send['panjang_lengan'] = $this->input->post('panjang_lengan');
+            $send['panjang_baju'] = $this->input->post('panjang_baju');
             $send['harga'] = $this->input->post('harga');
 
             $this->mdl_produk->tambahdata($send);
@@ -210,7 +220,6 @@ class Produk extends CI_Controller {
         }
     }
 
-
     public function hapus($id)
     {
         $where = array('id_ukuran' => $id);
@@ -266,6 +275,9 @@ class Produk extends CI_Controller {
     public function edit($id_update)
     {
         $this->form_validation->set_rules('nama_ukuran', 'Nama Ukuran', 'trim|required');
+        $this->form_validation->set_rules('lingkar_dada', 'Harga Ukuran', 'trim|required');
+        $this->form_validation->set_rules('panjang_baju', 'Harga Ukuran', 'trim|required');
+        $this->form_validation->set_rules('panjang_lengan', 'Harga Ukuran', 'trim|required');
         $this->form_validation->set_rules('harga', 'Harga Ukuran', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
@@ -275,6 +287,9 @@ class Produk extends CI_Controller {
         } else {
             $send['id_ukuran'] = $id_update;
             $send['nama_ukuran'] = $this->input->post('nama_ukuran');
+            $send['lingkar_dada'] = $this->input->post('lingkar_dada');
+            $send['panjang_baju'] = $this->input->post('panjang_baju');
+            $send['panjang_lengan'] = $this->input->post('panjang_lengan');
             $send['harga'] = $this->input->post('harga');
 
             $kembalian['jumlah'] = $this->mdl_produk->update($send);
@@ -392,6 +407,27 @@ class Produk extends CI_Controller {
             $this->mdl_produk->validasi_pembayaran($send);
             redirect('admin/Produk/transaksi');
     }
+
+
+    public function edit_ukuran($id_update)
+    {
+        $this->form_validation->set_rules('nama_ukuran', 'Nama Ukuran', 'trim|required');
+        // $this->form_validation->set_rules('harga', 'Harga Ukuran', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $indexrow['data'] = $this->mdl_produk->ambildata_ukuran2($id_update);
+            $indexrow['id_update'] = $id_update;
+            $this->load->view('admin/vedit_ukuran', $indexrow);            
+        } else {
+            $send['id_ukuran'] = $id_update;
+            $send['nama_ukuran'] = $this->input->post('nama_ukuran');
+            $send['harga'] = $this->input->post('harga');
+
+            $this->mdl_produk->update_ukuran($send);
+            redirect('admin/Produk/daftarProduk');                
+        }
+    }
+
 
     public function edit_produk($id_update)
     {

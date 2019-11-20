@@ -46,6 +46,27 @@
 </div>
 </div>
 <div class="form-group">
+<label class="form-label">Lingkar Dada</label>
+<div class="input-with-icon right">
+<i class=""></i>
+<input class="form-control" id="form1CardHolderName" name="lingkar_dada" type="text" required>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">Panjang Baju</label>
+<div class="input-with-icon right">
+<i class=""></i>
+<input class="form-control" id="form1CardHolderName" name="panjang_baju" type="text" required>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">Panjang Lengan</label>
+<div class="input-with-icon right">
+<i class=""></i>
+<input class="form-control" id="form1CardHolderName" name="panjang_lengan" type="text" required>
+</div>
+</div>
+<div class="form-group">
 <label class="form-label">Harga</label> <span class="help">contoh "250000"</span>
 <input class="form-control" id="form1Amount" name="harga" type="number" required>
 </div>
