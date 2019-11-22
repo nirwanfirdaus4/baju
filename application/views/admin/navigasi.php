@@ -7,7 +7,7 @@
 				<p class="menu-title sm">NAVIGATION</p>
 				<ul>
 					<li class="<?php if($this->uri->segment(2)=="Index_admin"){echo "open active";}?>">
-						<a href="widgets.html"> <i class="material-icons">home</i> <span class="title">Dashboard</span></a>
+						<a href="<?php echo base_url('admin/Index_admin'); ?>"> <i class="material-icons">home</i> <span class="title">Dashboard</span></a>
 					</li>
 					<li class="<?php if($this->uri->segment(2)=="Transaksi"){echo "open active";}?>">
 						<a href="javascript:;"> <i class="material-icons">panorama_horizontal</i> <span class="title">Produk</span> <span class=" arrow"></span> </a>

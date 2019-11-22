@@ -55,7 +55,7 @@
 						if ($hit2==7 || $hit==13 || $hit==19 || $hit==25 || $hit==31 || $hit==37 || $hit==43 || $hit==49 || $hit==55 || $hit==61) {
 							echo "<br>";
 						}
-
+ 
 							if ($query_ukuran0->num_rows()>0) {
 				            foreach ($query_ukuran0->result() as $keyStok3) { 	
 
@@ -65,7 +65,7 @@
 
 				            ?>
 							<div class="sc-item">
-									<input onclick="set_ukuran(<?php echo $keyUkuran->id_ukuran."7007"; ?>)" type="radio" value="<?php echo $keyUkuran->id_ukuran; ?>" name="sc" id="<?php echo $keyUkuran->id_ukuran."1"; ?>">
+									<input onclick="set_ukuran(<?php echo $keyUkuran->id_ukuran."7007"; ?>)" type="radio" value="<?php echo $keyUkuran->id_ukuran; ?>" name="sc" id="<?php echo $keyUkuran->id_ukuran."7007"; ?>">
 									<label for="<?php echo $keyUkuran->id_ukuran."7007"; ?>"><?php echo $keyUkuran->nama_ukuran; ?></label>
 								</div>
 							<?php }else{ ?>

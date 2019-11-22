@@ -7,6 +7,7 @@
 	<meta charset="utf-8" />
 	<title>Admin - L.Acollection</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link href="<?php echo base_url('assets_front/img/favicon.ico') ?>" rel="shortcut icon"/>
 	<meta content="" name="description" />
 	<meta content="" name="author" />
 
@@ -44,9 +45,6 @@
 					</li>
 				</ul>
 
-				<a href="index.html">
-					<img src="assets/img/logo.png" class="logo" alt="" data-src="<?php echo base_url('assets/img/logo.png') ?>" data-src-retina="<?php echo base_url('assets/img/logo2x.png') ?>" width="106" height="21" />
-				</a>
 			</div>
 
 			<div class="header-quick-nav">
@@ -70,8 +68,7 @@
 				<div class="pull-right">
 					<div class="chat-toggler sm">
 						<div class="profile-pic">
-							<img src="<?php echo base_url('assets/img/profiles/avatar_small.jpg') ?>" alt="" data-src="<?php echo base_url('assets/img/profiles/avatar_small.jpg') ?>" data-src-retina="<?php echo base_url('assets/img/profiles/avatar_small2x.jpg') ?>" width="35" height="35" />
-							<div class="availability-bubble online"></div>
+
 						</div>
 					</div>
 					<ul class="nav quick-section ">

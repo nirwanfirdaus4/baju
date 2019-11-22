@@ -374,6 +374,7 @@ class Home extends CI_Controller {
             $send['cp'] = $cp;
             $send['status_transaksi'] = "validasi_pesanan";
             $query_cart = $this->db->query("SELECT * FROM tb_cart where id_user=$id_user AND status='aktif'");
+            $query_user = $this->db->query("SELECT * FROM tb_user");
 
             $no=1;
             foreach ($query_cart->result() as $keycart) { 
@@ -384,7 +385,31 @@ class Home extends CI_Controller {
                 $this->mdl_user_produk->update_cart($send2);            
                 $no++;
             }
+
             $this->mdl_user_produk->tambah_transaksi($send);
+            foreach ($query_user->result() as $keyuser) { 
+                $ids= $keyuser->id_user;
+                $query_hitTrans = $this->db->query("SELECT * FROM tb_transaksi where id_user=$ids");
+                             $hit9=0;
+                             if ($query_hitTrans->num_rows()>10) {
+                                foreach ($query_hitTrans->result() as $keyhits) { 
+                                    if ($hit9==0) {
+                                        $file_foto=$keyhits->bukti_transfer;
+                                        if ($file_foto!="") {
+                                            $target= "upload/bukti/".$file_foto;
+                                            unlink($target);
+                                        }
+
+                                        $where = array('id_transaksi' => $keyhits->id_transaksi);
+                                        $this->mdl_user_produk->delete_data($where, 'tb_transaksi');
+                                    }
+                                $hit9++;
+                                }
+                             }
+
+            }
+
+
             redirect('Home/transaksi/'.$id_user);
 
             }
@@ -509,7 +534,7 @@ class Home extends CI_Controller {
             if ($_FILES["foto"]["name"] != "") {
                 $config['upload_path']          = './upload/bukti/';
                 $config['allowed_types']        = 'jpg|JPG|jpeg|JPEG|png|PNG';
-                $config['max_size']             = 3000;
+                $config['max_size']             = 400;
                 $config['file_name'] = "Bukti_" . "_" . time();
                 // $config['max_width']            = 1024;
                 // $config['max_height']           = 768;

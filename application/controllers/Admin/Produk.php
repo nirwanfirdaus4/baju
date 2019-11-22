@@ -177,7 +177,7 @@ class Produk extends CI_Controller {
             if ($_FILES["foto"]["name"] != "") {
                 $config['upload_path']          = './upload/produk/';
                 $config['allowed_types']        = 'jpg|JPG|jpeg|JPEG|png|PNG';
-                $config['max_size']             = 3000;
+                $config['max_size']             = 500;
                 $config['file_name'] = "Produk_" . "_" . time();
                 // $config['max_width']            = 1024;
                 // $config['max_height']           = 768;
@@ -224,6 +224,8 @@ class Produk extends CI_Controller {
     {
         $where = array('id_ukuran' => $id);
         $this->mdl_produk->delete_data($where, 'tb_ukuran');
+        $this->mdl_produk->delete_data($where, 'tb_cart');
+        $this->mdl_produk->delete_data($where, 'tb_stok');
         $this->session->set_flashdata('msg_delete', 'Data berhasil dihapus');
         redirect('admin/Produk/ukuran');
     }
@@ -232,6 +234,8 @@ class Produk extends CI_Controller {
     {
         $where = array('id_warna' => $id);
         $this->mdl_produk->delete_data($where, 'tb_warna');
+        $this->mdl_produk->delete_data($where, 'tb_cart');
+        $this->mdl_produk->delete_data($where, 'tb_stok');
         $this->session->set_flashdata('msg_delete', 'Data berhasil dihapus');
         redirect('admin/Produk/warna');
     }
@@ -250,6 +254,9 @@ class Produk extends CI_Controller {
         }
 
         $this->mdl_produk->delete_data($where, 'tb_produk');
+        $this->mdl_produk->delete_data($where, 'tb_cart');
+        $this->mdl_produk->delete_data($where, 'tb_stok');
+
         $this->session->set_flashdata('msg_delete', 'Data berhasil dihapus');
         redirect('admin/Produk/daftarProduk');
     }
@@ -584,7 +591,7 @@ class Produk extends CI_Controller {
             if ($_FILES["foto"]["name"] != "") {
                 $config['upload_path']          = './upload/produk/';
                 $config['allowed_types']        = 'jpg|JPG|jpeg|JPEG|png|PNG';
-                $config['max_size']             = 3000;
+                $config['max_size']             = 500;
                 $config['file_name'] = "Produk_" . "_" . time();
                 // $config['max_width']            = 1024;
                 // $config['max_height']           = 768;

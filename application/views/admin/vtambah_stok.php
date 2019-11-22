@@ -93,7 +93,7 @@
 </div>
 <div class="form-group">
 <label class="form-label">Foto Produk</label>
-	<input type="file" name="foto">
+	<input required type="file" name="foto">
 </div>
 
 <div class="form-actions">

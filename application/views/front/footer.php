@@ -87,7 +87,7 @@
 				</div>
 
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> 
-<p class="text-white text-center mt-5">La Collection <script>document.write(new Date().getFullYear());</script> edited by envadev.com <i class="fa fa-heart-o" aria-hidden="true"></i></p>
+<p class="text-white text-center mt-5">L.A Collection <script>document.write(new Date().getFullYear());</script> <i class="fa fa-heart-o" aria-hidden="true"></i></p>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
 			</div>

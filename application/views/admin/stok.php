@@ -38,7 +38,7 @@
 </div>
 </div>
 <div class="grid-body ">
-<table class="table table-striped" id="example2">
+<table class="table table-striped" id="">
 <thead>
 <tr>
 <th>No</th>
